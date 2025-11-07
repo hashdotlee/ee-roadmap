@@ -1,979 +1,292 @@
-# Lư thuy¿t Chuyên sâu (Advanced Topics)
+# Lý thuyết Chuyên sâu (Advanced Topics)
 
-## 1. Audio & Radio
+## 1. PCB Design - Thiết kế mạch in
 
-### 1.1 Audio Hi-Fi (High Fidelity)
+### 1.1 Quy trình thiết kế PCB
 
-#### 1.1.1 Thông sÑ Audio quan trÍng
+#### Bước 1: Schematic (Sơ đồ nguyên lý)
+- Vẽ sơ đồ điện tử hoàn chỉnh
+- Gắn footprint cho từng linh kiện
+- Kiểm tra ERC (Electrical Rule Check)
 
-**1. THD (Total Harmonic Distortion)**:
-- TƠng méo hài
-- o l°Ưng Ù "trong" cça âm thanh
-- Hi-Fi: THD < 0.1%
-- Professional: THD < 0.01%
+#### Bước 2: PCB Layout
+- Đặt linh kiện (Placement)
+- Routing (Nối dây)
+- Copper pour (Đổ đồng) cho GND, VCC
+- Kiểm tra DRC (Design Rule Check)
 
-**2. SNR (Signal-to-Noise Ratio)**:
-- TÉ sÑ tín hiÇu/nhiÅu (dB)
-- Cao = ít nhiÅu
-- Hi-Fi: SNR > 90dB
-- CD quality: 96dB
+#### Bước 3: Xuất file sản xuất
+- Gerber files (RS-274X)
+- Drill files (Excellon)
+- BOM (Bill of Materials)
 
-**3. Frequency Response**:
-- D£i t§n áp éng
-- Human hearing: 20Hz - 20kHz
-- Hi-Fi: 20Hz - 20kHz ±3dB
-- Professional: 10Hz - 30kHz
+### 1.2 Phần mềm thiết kế PCB
 
-**4. Slew Rate**:
-- TÑc Ù thay Ơi iÇn áp (V/µs)
-- Cao = ph£n hÓi nhanh vÛi tín hiÇu
-- Hi-Fi op-amp: > 10V/µs
+| Phần mềm | Giá | Ưu điểm | Nhược điểm |
+|----------|-----|---------|------------|
+| **KiCad** | Miễn phí | Mã nguồn mở, đầy đủ tính năng | Giao diện học hơi khó |
+| **EasyEDA** | Miễn phí | Web-based, dễ dùng, tích hợp JLCPCB | Cần internet |
+| **Eagle** | Trả phí (free hạn chế) | Phổ biến, nhiều thư viện | Phức tạp |
+| **Altium Designer** | Rất đắt | Chuyên nghiệp nhất | Chỉ dành cho doanh nghiệp |
 
-**5. Output Power**:
-- Công su¥t ra (W RMS)
-- Tính: P = Vrms² / R_speaker
+### 1.3 Quy tắc thiết kế cơ bản
 
-**6. Damping Factor**:
-- DF = R_speaker / R_output_amp
-- Cao = iÁu khiĂn loa tÑt
-- Good: DF > 50
+#### Độ rộng đường mạch (Track Width)
+- **Tín hiệu**: 0.2mm - 0.3mm
+- **Nguồn 1A**: 0.5mm
+- **Nguồn 2A**: 1mm
+- **Nguồn 3A+**: 1.5mm - 2mm
 
-#### 1.1.2 Phân lo¡i Amplifier
+#### Khoảng cách (Clearance)
+- **Tín hiệu thường**: 0.2mm
+- **AC 220V**: ≥ 2mm (an toàn)
+- **High voltage**: Theo tiêu chuẩn
 
-**Preamp (TiÁn khu¿ch ¡i)**:
-- Khu¿ch ¡i tín hiÇu y¿u (mV)
-- Low noise, high gain
-- Input: Mic, phono, line
+#### Layer (Lớp)
+- **1-2 layer**: DIY, đơn giản, rẻ
+- **4 layer**: Có GND plane, VCC plane riêng, ổn định hơn
+- **6+ layer**: Chuyên nghiệp, tần số cao
 
-**Power Amp (Khu¿ch ¡i công su¥t)**:
-- Khu¿ch ¡i Ă ©y loa
-- High current, low distortion
+### 1.4 Tips thiết kế
 
-**Integrated Amp**:
-- Preamp + Power amp trong 1 box
+#### Nguồn điện
+- Đường nguồn càng ngắn càng tốt
+- Dùng copper pour cho GND
+- Tụ decoupling 100nF gần mỗi IC
+- Tụ bulk 10-100µF ở đầu vào nguồn
 
-#### 1.1.3 Thi¿t k¿ Audio ¡n gi£n
+#### Tín hiệu
+- Tránh góc 90°, dùng góc 45°
+- Đường tín hiệu cao tốc (SPI, I2C) ngắn nhất
+- Tránh chạy song song với nguồn AC
 
-**M¡ch Preamp op-amp**:
-```
-         Rf (100k©)
-  /\/\/\
-                    
- $OUT              
-             $- IN
-                   
-      Ri           
-Vin /\/\/\    $+ IN (bias Vcc/2)
-      (10k©)         
-                    GND
-
-Gain = -Rf / Ri = -100k/10k = -10 (20dB)
-```
-
-**L°u ư thi¿t k¿ Hi-Fi**:
-1. **NguÓn s¡ch**: Low ripple, dual supply ±15V
-2. **Shielded cable**: Gi£m nhiÅu pickup
-3. **Star grounding**: Tránh ground loop
-4. **Coupling capacitor**: Film/polypropylene (không phân cñc)
-5. **Op-amp ch¥t l°ăng**: OPA2134, NE5532, LM4562
-
-#### 1.1.4 Tone Control
-
-**Baxandall Tone Control** (Bass/Treble):
-```
-M¡ch phƠ bi¿n nh¥t, dùng op-amp + RC network
-- Bass control: Thay Ơi low freq (100Hz)
-- Treble control: Thay Ơi high freq (10kHz)
-- Midrange: Flat
-```
-
-**Graphic Equalizer**:
-- NhiÁu band filters (5-band, 10-band, 31-band)
-- iÁu chÉnh tëng d£i t§n riêng
-- Dùng band-pass filters + op-amp
-
-#### 1.1.5 Phono Preamp (RIAA)
-
-**T¡i sao c§n**:
-- )a vinyl recording có RIAA equalization curve
-- C§n phono preamp Ă "de-emphasize" (£o l¡i curve)
-
-**RIAA curve**:
-- Bass cut, treble boost khi recording
-- Phono preamp: Bass boost, treble cut khi playback
-
-**Thi¿t k¿**: Dùng op-amp + RIAA RC network
-
-### 1.2 AM/FM Radio
-
-#### 1.2.1 AM (Amplitude Modulation)
-
-**Nguyên lư**:
-- Biên Ù sóng mang thay Ơi theo tín hiÇu âm thanh
-- Carrier frequency: 540kHz - 1600kHz (MW band)
-
-**Ph°¡ng tŕnh**:
-```
-v(t) = Vc × (1 + m × cos(Ém×t)) × cos(Éc×t)
-
-Vc: Carrier amplitude
-m: Modulation index (0-1)
-Ém: Modulating frequency (audio)
-Éc: Carrier frequency (RF)
-```
-
-**Modulation index**:
-```
-m = (Vmax - Vmin) / (Vmax + Vmin)
-
-m = 1 (100%): Ideal
-m > 1: Over-modulation (méo)
-```
-
-**AM Receiver (Superheterodyne)**:
-```
-Antenna ' RF Amp ' Mixer ' IF Amp ' Detector ' Audio Amp ' Speaker
-                     "
-                   LO (Local Oscillator)
-```
-
-**IF (Intermediate Frequency)**: 455kHz (chu©n AM)
-
-**Detector**: Diode envelope detector
-
-#### 1.2.2 FM (Frequency Modulation)
-
-**Nguyên lư**:
-- T§n sÑ sóng mang thay Ơi theo tín hiÇu âm thanh
-- Carrier frequency: 88MHz - 108MHz
-
-**¯u iĂm so vÛi AM**:
-- Ch¥t l°ăng âm thanh tÑt h¡n
-- Ít nhiÅu (noise immunity)
-- Bandwidth rÙng h¡n
-
-**Ph°¡ng tŕnh**:
-```
-v(t) = Vc × cos(Éc×t + "f/fm × sin(Ém×t))
-
-"f: Frequency deviation (±75kHz cho FM broadcast)
-fm: Modulating frequency
-```
-
-**FM Receiver**:
-```
-Antenna ' RF Amp ' Mixer ' IF Amp ' Limiter ' Discriminator ' Audio
-                     "                                   (FM detector)
-                   LO
-```
-
-**IF**: 10.7MHz (chu©n FM)
-
-**Discriminator**: PLL ho·c quadrature detector
-
-#### 1.2.3 IC Radio phƠ bi¿n
-
-**AM/FM Receiver**:
-- **TDA7000**: FM receiver single-chip
-- **CXA1019**: AM/FM receiver
-- **Si4735**: Digital AM/FM/SW receiver (I²C control)
-
-**Ví då TDA7000**:
-- Single-chip FM receiver
-- IF = 70kHz (very low)
-- Ít linh kiÇn ngoài
-- Dùng cho radio ¡n gi£n
-
-### 1.3 SDR (Software Defined Radio)
-
-#### 1.3.1 Khái niÇm
-
-**Traditional radio**: Hardware làm t¥t c£ (mixing, filtering, demodulation)
-**SDR**: Hardware chÉ down-convert RF ' baseband, software xí lư c̣n l¡i
-
-**¯u iĂm**:
-- Flexible (thay Ơi b±ng code)
-- Multi-mode (AM/FM/SSB/Digital)
-- Update firmware
-- Cheap vÛi RTL-SDR dongle
-
-#### 1.3.2 Ki¿n trúc SDR c¡ b£n
-
-```
-Antenna ' LNA ' Mixer ' ADC ' FPGA/DSP/CPU ' Software
-                  "
-                 LO
-```
-
-**ADC**: Ph£i ç nhanh Ă sample RF signal
-- Nyquist: fs > 2 × f_max
-- VD: FM 108MHz ' c§n ADC > 216MSPS (ho·c down-convert tr°Ûc)
-
-**I/Q Sampling**:
-- Sample c£ In-phase (I) và Quadrature (Q)
-- Giï thông tin phase và amplitude
-- C§n cho digital demodulation
-
-#### 1.3.3 RTL-SDR
-
-**PhƠ bi¿n nh¥t cho beginners**:
-- R» (~$25)
-- Range: 24MHz - 1.7GHz
-- USB dongle
-- Software: SDR#, GQRX, GNU Radio
-
-**èng dång**:
-- FM radio
-- ADS-B (aircraft tracking)
-- Weather satellite (NOAA APT)
-- Trunked radio
-- Amateur radio
-
-**H¡n ch¿**:
-- RX only (không TX)
-- Ch¥t l°ăng trung b́nh
-- Limited bandwidth
-
-#### 1.3.4 HackRF One, LimeSDR
-
-**TX/RX capable**:
-- HackRF: 1MHz - 6GHz
-- LimeSDR: 100kHz - 3.8GHz
-- Full-duplex
-- Open source
-
-**èng dång**:
-- Amateur radio transceiver
-- Cellular research
-- GPS spoofing (research only!)
-- Spectrum analyzer
+#### Nhiệt
+- Tản nhiệt cho IC công suất (LDO, MOSFET)
+- Via để dẫn nhiệt xuống layer dưới
 
 ---
 
-## 2. Microcontrollers
+## 2. Giao tiếp (Communication Protocols)
 
-### 2.1 Arduino
+### 2.1 UART (Serial)
 
-#### 2.1.1 GiÛi thiÇu
+#### Đặc điểm
+- **2 dây**: TX (truyền), RX (nhận)
+- **Baud rate**: 9600, 115200... (phải giống nhau 2 bên)
+- **Đơn giản nhất**
 
-**T¡i sao b¯t §u vÛi Arduino**:
-- DÅ hÍc (C/C++ ¡n gi£n)
-- Ecosystem lÛn (libraries, shields)
-- IDE ¡n gi£n
-- Community h× tră tÑt
-- Giá r»
+#### Ứng dụng
+- Debug, log
+- GPS module
+- Bluetooth HC-05
 
-#### 2.1.2 Arduino Uno (ATmega328P)
-
-**Thông sÑ**:
-- CPU: 8-bit AVR, 16MHz
-- Flash: 32KB (program memory)
-- SRAM: 2KB (runtime memory)
-- EEPROM: 1KB (non-volatile data)
-- GPIO: 14 digital, 6 analog (10-bit ADC)
-- PWM: 6 pins
-- UART, SPI, I²C
-
-**Pinout quan trÍng**:
-```
-Digital: 0-13 (0,1: UART TX/RX)
-Analog:  A0-A5 (có thĂ dùng nh° digital)
-PWM:     3, 5, 6, 9, 10, 11 (d¥u ~)
-SPI:     10 (SS), 11 (MOSI), 12 (MISO), 13 (SCK)
-I²C:     A4 (SDA), A5 (SCL)
-```
-
-**Power**:
-- 5V logic
-- Max current per pin: 40mA
-- Total max current: 200mA
-
-#### 2.1.3 Code structure
-
+#### Arduino
 ```cpp
-void setup() {
-  // Ch¡y 1 l§n khi reset
-  pinMode(LED_BUILTIN, OUTPUT);
-  Serial.begin(9600);
-}
-
-void loop() {
-  // L·p măi
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(1000);
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(1000);
-}
+Serial.begin(9600);
+Serial.println("Hello");
+char c = Serial.read();
 ```
 
-#### 2.1.4 Libraries phƠ bi¿n
+### 2.2 I2C (Inter-Integrated Circuit)
 
-- **Servo.h**: iÁu khiĂn servo motor
-- **Wire.h**: I²C communication
-- **SPI.h**: SPI communication
-- **LiquidCrystal.h**: LCD 16x2
-- **DHT.h**: DHT11/22 temperature sensor
-- **Adafruit_***: Sensors, displays
+#### Đặc điểm
+- **2 dây**: SDA (data), SCL (clock)
+- **Nhiều thiết bị trên 1 bus** (địa chỉ 7-bit)
+- Tốc độ: 100kHz (Standard), 400kHz (Fast)
+- **Pull-up resistor** cần thiết (4.7kΩ)
 
-#### 2.1.5 Interrupts
+#### Ứng dụng
+- OLED display, LCD I2C
+- RTC (DS1307, DS3231)
+- Cảm biến (BMP280, MPU6050)
+- EEPROM (AT24C32)
 
-**Hardware interrupt**:
+#### Arduino
 ```cpp
-const int buttonPin = 2; // Pin 2 ho·c 3 (Uno)
-
-void setup() {
-  pinMode(buttonPin, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(buttonPin), buttonISR, FALLING);
-}
-
-void buttonISR() {
-  // Ch¡y khi button pressed
-  // Keep short, no delay()!
-}
-
-void loop() {
-  // Main code
-}
+#include <Wire.h>
+Wire.begin();
+Wire.beginTransmission(0x3C); // Địa chỉ I2C
+Wire.write(data);
+Wire.endTransmission();
 ```
 
-**Timer interrupt**:
-- Dùng th° viÇn TimerOne, TimerThree
-- Ch¡y code Ënh kó chính xác (ms, µs)
+### 2.3 SPI (Serial Peripheral Interface)
 
-### 2.2 STM32
+#### Đặc điểm
+- **4 dây**: MOSI, MISO, SCK, CS/SS
+- **Nhanh nhất**: 10-50MHz
+- **Master-Slave**
+- Mỗi slave cần 1 dây CS riêng
 
-#### 2.2.1 T¡i sao upgrade të Arduino
+#### Ứng dụng
+- SD card
+- NRF24L01 (wireless)
+- TFT display
+- Flash memory
 
-**STM32 m¡nh h¡n Arduino**:
-- 32-bit ARM Cortex-M (vs 8-bit AVR)
-- TÑc Ù cao (72MHz - 480MHz)
-- NhiÁu memory (64KB - 2MB Flash)
-- NhiÁu peripherals (ADC 12-bit, DAC, DMA, timers...)
-- Giá r» h¡n (VD: Blue Pill ~$2)
-
-#### 2.2.2 STM32 Blue Pill (STM32F103C8T6)
-
-**Thông sÑ**:
-- CPU: ARM Cortex-M3, 72MHz
-- Flash: 64KB (ho·c 128KB trên chip clone)
-- SRAM: 20KB
-- GPIO: 37 pins
-- ADC: 12-bit (2 channels)
-- Timers: 7 (advanced, general, watchdog)
-- UART: 3
-- SPI: 2
-- I²C: 2
-- USB: 1 (Full-speed device)
-- Power: 3.3V logic
-
-**Pinout**: Xem online (nhiÁu pin h¡n Arduino)
-
-#### 2.2.3 Programming STM32
-
-**Ph°¡ng pháp**:
-
-**1. Arduino IDE** (dÅ nh¥t cho beginners):
-```
-- Cài STM32 board support package
-- ChÍn board: Generic STM32F103C8
-- Upload via USB (c§n bootloader) ho·c ST-Link
-```
-
-**2. STM32CubeIDE** (professional):
-- HAL (Hardware Abstraction Layer)
-- Graphical config (STM32CubeMX)
-- Debugging tÑt
-
-**3. PlatformIO** (VSCode):
-- Modern IDE
-- Multi-platform
-- Library manager tÑt
-
-**Upload code**:
-- **ST-Link V2**: Hardware debugger (~$3)
-  - SWD pins: SWDIO, SWCLK, GND, 3.3V
-- **USB bootloader**: C§n n¡p bootloader tr°Ûc (nh° Arduino)
-
-#### 2.2.4 Ví då code (Arduino IDE)
-
+#### Arduino
 ```cpp
-// Blink LED PC13 (Blue Pill onboard LED)
-void setup() {
-  pinMode(PC13, OUTPUT);
-}
-
-void loop() {
-  digitalWrite(PC13, LOW);  // LED on (active low)
-  delay(500);
-  digitalWrite(PC13, HIGH); // LED off
-  delay(500);
-}
+#include <SPI.h>
+SPI.begin();
+digitalWrite(CS_PIN, LOW);
+SPI.transfer(data);
+digitalWrite(CS_PIN, HIGH);
 ```
 
-**L°u ư**:
-- STM32 là 3.3V logic (không 5V tolerant trên h§u h¿t pin!)
-- Pin names: PA0, PB1, PC13... (không ph£i sÑ nh° Arduino)
+### 2.4 So sánh
 
-### 2.3 ESP32
+| Protocol | Tốc độ | Số dây | Khoảng cách | Phức tạp |
+|----------|--------|--------|-------------|----------|
+| UART | Trung bình | 2 | < 15m | Đơn giản nhất |
+| I2C | Trung bình | 2 | < 1m | Trung bình |
+| SPI | Rất nhanh | 4+ | < 0.3m | Phức tạp |
 
-#### 2.3.1 GiÛi thiÇu
+---
 
-**ESP32 = STM32 + WiFi + Bluetooth**:
-- WiFi 802.11 b/g/n
-- Bluetooth Classic + BLE
-- Dual-core (240MHz)
-- R» (~$5)
+## 3. Wireless Communication
 
-#### 2.3.2 ESP32 DevKit
+### 3.1 WiFi
 
-**Thông sÑ**:
-- CPU: Dual-core Xtensa LX6, 240MHz
-- Flash: 4MB (external)
-- SRAM: 520KB
-- WiFi: 2.4GHz, 802.11n
-- Bluetooth: Classic + BLE 4.2
-- GPIO: 34 pins
-- ADC: 12-bit (18 channels)
-- DAC: 8-bit (2 channels)
-- Touch sensors: 10 pins
-- UART, SPI, I²C, I²S
-- Power: 3.3V logic
+#### ESP8266 / ESP32
+- **Tầm**: 50-100m (ngoài trời)
+- **Tốc độ**: 150Mbps (lý thuyết)
+- **Ứng dụng**: IoT, web server, MQTT, HTTP
 
-**Pinout**: NhiÁu variants (ESP32-DevKitC, WROOM, WROVER)
-
-#### 2.3.3 Programming ESP32
-
-**Arduino IDE**:
-```
-1. Add board manager URL:
-   https://dl.espressif.com/dl/package_esp32_index.json
-2. Install ESP32 board package
-3. Select board: ESP32 Dev Module
-4. Upload via USB (CP2102/CH340 driver)
-```
-
-**PlatformIO**: framework = arduino / espidf
-
-#### 2.3.4 WiFi example
-
+#### Ví dụ Web Server
 ```cpp
 #include <WiFi.h>
+#include <WebServer.h>
 
-const char* ssid = "YourSSID";
-const char* password = "YourPassword";
-
-void setup() {
-  Serial.begin(115200);
-  WiFi.begin(ssid, password);
-
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-
-  Serial.println("\nWiFi connected!");
-  Serial.print("IP: ");
-  Serial.println(WiFi.localIP());
-}
-
-void loop() {
-  // Your code
-}
+WiFiServer server(80);
+server.begin();
+// Xử lý request HTTP...
 ```
 
-#### 2.3.5 BLE example (iBeacon)
+### 3.2 Bluetooth
 
+#### HC-05 / HC-06 (Classic)
+- **Tầm**: 10m
+- **Tốc độ**: 2.1Mbps
+- **Dùng UART** để giao tiếp với MCU
+- **Ứng dụng**: Điều khiển từ smartphone
+
+#### BLE (Bluetooth Low Energy)
+- **HM-10, ESP32**
+- Tiết kiệm điện hơn rất nhiều
+- **Ứng dụng**: Cảm biến IoT, thiết bị đeo
+
+### 3.3 LoRa (Long Range)
+
+#### Đặc điểm
+- **Tầm**: 2-15km (ngoài trời)
+- **Tốc độ**: 0.3 - 50 kbps (rất chậm)
+- **Tiết kiệm điện**
+- Module: SX1278, RA-02
+
+#### Ứng dụng
+- IoT nông nghiệp
+- Cảm biến xa
+- Mạng LoRaWAN
+
+### 3.4 NRF24L01+
+
+#### Đặc điểm
+- **Tầm**: 100m (có anten)
+- **Tốc độ**: 2Mbps
+- **2.4GHz**
+- **Rẻ** (~15k VNĐ)
+
+#### Ứng dụng
+- Điều khiển RC
+- Wireless sensor
+- Drone telemetry
+
+---
+
+## 4. Sensors & Actuators
+
+### 4.1 Cảm biến nhiệt độ
+
+| Cảm biến | Loại | Độ chính xác | Giao tiếp | Giá |
+|----------|------|--------------|-----------|-----|
+| DHT11 | Nhiệt + Độ ẩm | ±2°C | 1-wire | Rẻ |
+| DHT22 | Nhiệt + Độ ẩm | ±0.5°C | 1-wire | Trung bình |
+| DS18B20 | Nhiệt | ±0.5°C | 1-wire | Trung bình |
+| BMP280 | Nhiệt + Áp suất | ±1°C | I2C/SPI | Trung bình |
+
+### 4.2 Cảm biến chuyển động
+
+#### PIR (Passive Infrared)
+- Phát hiện chuyển động người
+- **Ứng dụng**: Đèn tự động, báo trộm
+
+#### MPU6050 (IMU)
+- **Gyroscope + Accelerometer** 6-axis
+- **I2C**
+- **Ứng dụng**: Drone, robot cân bằng, VR
+
+#### Ultrasonic HC-SR04
+- Đo khoảng cách 2cm - 4m
+- **Trigger + Echo**
+- **Ứng dụng**: Robot tránh vật cản
+
+### 4.3 Actuators (Bộ chấp hành)
+
+#### Servo Motor
+- Góc quay: 0-180° (thường)
+- **PWM control** (50Hz, 1-2ms pulse)
+- **Ứng dụng**: Cánh tay robot, gimbal
+
+#### Stepper Motor
+- Quay chính xác theo bước (1.8°/step thường)
+- **Driver**: A4988, DRV8825, TMC2208
+- **Ứng dụng**: 3D printer, CNC
+
+#### DC Motor
+- Quay liên tục
+- **Driver**: L298N, L293D
+- **Ứng dụng**: Xe robot, quạt
+
+---
+
+## 5. Power Management
+
+### 5.1 Tiết kiệm năng lượng
+
+#### Sleep Mode (ESP32)
 ```cpp
-#include <BLEDevice.h>
-#include <BLEUtils.h>
-#include <BLEBeacon.h>
-
-void setup() {
-  BLEDevice::init("ESP32_Beacon");
-
-  BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
-  BLEBeacon oBeacon = BLEBeacon();
-  oBeacon.setManufacturerId(0x4C00); // Apple
-  // Set UUID, major, minor...
-
-  pAdvertising->start();
-}
-
-void loop() {
-  delay(1000);
-}
-```
-
-#### 2.3.6 Use cases
-
-- IoT devices (sensor + WiFi)
-- Home automation (MQTT, HTTP)
-- BLE beacons
-- Web server (ESP32 host webpage)
-- ESP-NOW (peer-to-peer protocol)
-
-#### 2.3.7 Power consumption
-
-**Issue**: ESP32 tiêu thå nhiÁu khi WiFi on (~160mA)
-
-**Solutions**:
-- Deep sleep mode (10µA)
-- Light sleep (0.8mA)
-- Wake on timer, GPIO, touch
-
-```cpp
-// Deep sleep 10 seconds
-esp_sleep_enable_timer_wakeup(10 * 1000000); // µs
+esp_sleep_enable_timer_wakeup(60 * 1000000); // 60s
 esp_deep_sleep_start();
 ```
 
----
+#### Arduino Sleep
+- Dùng thư viện `LowPower`
+- Giảm từ 50mA → 0.1mA
 
-## 3. PCB Design
+### 5.2 Pin sạc
 
-### 3.1 T¡i sao c§n PCB?
+#### Lithium 18650
+- **Điện áp**: 3.7V (3.0V - 4.2V)
+- **Dung lượng**: 2000-3500mAh
+- **Cần mạch bảo vệ** (TP4056)
 
-**Breadboard/Perfboard**:
-- Prototyping
-- LÙn xÙn, không Ơn Ënh
-- NhiÅu cao
-
-**PCB (Printed Circuit Board)**:
-- Professional
-- Compact, Ơn Ënh
-- Ít nhiÅu
-- Manufacturing friendly
-
-### 3.2 Quy tŕnh thi¿t k¿ PCB
-
-```
-1. Schematic design (V½ s¡ Ó m¡ch)
-   "
-2. Component footprint assignment
-   "
-3. PCB layout (BÑ trí linh kiÇn, i dây)
-   "
-4. Design Rule Check (DRC)
-   "
-5. Generate Gerber files
-   "
-6. Send to manufacturer (JLCPCB, PCBWay...)
-   "
-7. Receive PCB, solder components
-```
-
-### 3.3 KiCad
-
-#### 3.3.1 GiÛi thiÇu
-
-**¯u iĂm**:
-- Free, open source
-- Cross-platform (Windows, Mac, Linux)
-- Professional quality
-- Large library (symbols, footprints)
-- Active community
-
-**Ph§n mÁm khác**:
-- **Eagle** (Autodesk): Free version có h¡n ch¿ (100cm²)
-- **Altium Designer**: Professional, ¯t
-- **EasyEDA**: Online, miÅn phí, tích hăp vÛi JLCPCB
-
-#### 3.3.2 KiCad workflow
-
-**1. Schematic Editor (Eeschema)**:
-- Place symbols (resistor, capacitor, IC...)
-- Wire connections
-- Assign values (1k©, 10µF...)
-- Annotate (R1, R2, C1, C2...)
-- ERC (Electrical Rule Check)
-
-**2. PCB Editor (Pcbnew)**:
-- Import netlist from schematic
-- Place footprints
-- Route traces (manual ho·c auto-router)
-- Add ground planes (copper pour)
-- Add silkscreen (text, logo)
-- DRC (Design Rule Check)
-
-**3. Generate Gerber**:
-- Plot ' Gerber format
-- Gíi cho nhà s£n xu¥t
-
-#### 3.3.3 Design rules c¡ b£n
-
-**Trace width**:
-```
-W (mm) = (I × 0.048) / ("T × A)^0.44
-
-¡n gi£n h¡n: Dùng calculator online
-- Signal: 0.2-0.3mm (8-12mil)
-- Power (1A): 0.5mm (20mil)
-- Power (2A): 1mm (40mil)
-```
-
-**Clearance** (kho£ng cách tÑi thiĂu):
-- Trace-to-trace: 0.2mm (8mil)
-- Trace-to-pad: 0.2mm
-
-**Via size**:
-- Drill: 0.3-0.4mm
-- Annular ring: 0.2mm
-
-**Layer stackup** (2-layer PCB phƠ bi¿n):
-- Top: Component + traces
-- Bottom: Ground plane + traces
-
-### 3.4 PCB Manufacturing
-
-#### 3.4.1 Nhà s£n xu¥t phƠ bi¿n
-
-| Manufacturer | Giá (10 PCB 10x10cm) | Ship | Notes |
-|--------------|----------------------|------|-------|
-| JLCPCB | $2 + ship (~$7) | Nhanh | PhƠ bi¿n nh¥t |
-| PCBWay | $5 + ship | Trung b́nh | Ch¥t l°ăng tÑt |
-| Seeed Fusion | $5 + ship | Ch­m | Có assembly |
-| OSH Park | $1/sqin × 3 | Slow | USA, purple PCB |
-
-**Thông sÑ chu©n**:
-- Layers: 2 (Top + Bottom)
-- Size: 100×100mm ho·c nhÏ h¡n
-- Thickness: 1.6mm
-- Copper weight: 1oz
-- Silkscreen: White (top)
-- Soldermask: Green
-- Surface finish: HASL (lead-free)
-
-#### 3.4.2 Gerber files
-
-**Files c§n thi¿t**:
-- Top/Bottom copper layer (.GTL, .GBL)
-- Top/Bottom soldermask (.GTS, .GBS)
-- Top/Bottom silkscreen (.GTO, .GBO)
-- Drill file (.TXT, .DRL)
-- Edge cuts (.GM1)
-
-**Zip t¥t c£ ' Upload lên website nhà s£n xu¥t**
-
-#### 3.4.3 Assembly (SMT)
-
-**SMT (Surface Mount Technology)**:
-- Linh kiÇn g¯n bÁ m·t (0805, 0603, SOIC, QFN...)
-- Nhà s£n xu¥t hàn giúp (có phí)
-- C§n files: BOM (Bill of Materials), CPL (Component Placement List)
-
-**Services**:
-- JLCPCB SMT: R», library lÛn
-- PCBWay Assembly
-- Seeed Fusion
-
-### 3.5 PCB Design Tips
-
-**General**:
-1. **Decoupling capacitors**: 100nF g§n m×i IC power pin
-2. **Ground plane**: Fill unused area vÛi GND (gi£m nhiÅu)
-3. **Trace angles**: 45° (không 90°)
-4. **Via stitching**: K¿t nÑi top/bottom ground planes
-
-**High-speed signals**:
-- Trace ng¯n, rÙng
-- Tránh stub (nhánh ch¿t)
-- Differential pairs (USB, LVDS)
-
-**Power traces**:
-- RÙng (1mm+ cho 1A)
-- Star topology (nguÓn ß trung tâm)
-
-**RF**:
-- Controlled impedance (50©)
-- Ground plane liên tåc
-- Keep away from digital signals
+#### Solar Panel
+- **6V 1W** phổ biến cho DIY
+- Cần **charging controller**
 
 ---
 
-## 4. Measurement - o l°Ưng
-
-### 4.1 Multimeter
-
-**ă bi¿t** (të ph§n foundations):
-- Voltage, current, resistance
-- Continuity, diode test
-
-**Advanced uses**:
-- Capacitance measurement
-- Frequency counter
-- Temperature (vÛi probe K-type)
-- True RMS (cho AC non-sinusoidal)
-
-### 4.2 Oscilloscope (Dao Ùng kư)
-
-#### 4.2.1 Chéc nng
-
-**HiĂn thË d¡ng sóng theo thƯi gian**:
-- Y-axis: Voltage
-- X-axis: Time
-- Th¥y °ăc: Frequency, amplitude, phase, noise, glitch
-
-#### 4.2.2 Thông sÑ quan trÍng
-
-**1. Bandwidth**:
-- T§n sÑ tÑi a o °ăc
-- Rule: BW e 5 × f_signal
-- PhƠ bi¿n: 50MHz, 100MHz, 200MHz
-
-**2. Sample rate**:
-- SÑ m«u/giây (MSa/s, GSa/s)
-- Rule: SR e 5 × BW
-
-**3. SÑ kênh**:
-- 2-channel (phƠ bi¿n)
-- 4-channel (advanced)
-
-**4. Memory depth**:
-- SÑ iĂm l°u trï
-- Càng nhiÁu ' Zoom in càng chi ti¿t
-
-**5. Input impedance**:
-- Th°Ưng 1M© || 20pF
-- High Z ' Ít £nh h°ßng m¡ch
-
-#### 4.2.3 Probe
-
-**1:1 Probe**:
-- Không gi£m biên Ù
-- Bandwidth th¥p
-
-**10:1 Probe** (phƠ bi¿n):
-- Chia 10 voltage (VD: 5V ' 0.5V trên scope)
-- Bandwidth cao h¡n
-- Compensated probe (c§n adjust)
-
-**Compensation**:
-- Scope có output ~1kHz square wave
-- Adjust probe trimmer capacitor ' Square wave ¹p
-
-#### 4.2.4 Trigger
-
-**Chéc nng**: B¯t §u v½ waveform khi iÁu kiÇn thÏa măn
-
-**Trigger modes**:
-- **Edge**: C¡nh lên/xuÑng
-- **Pulse**: Ù rÙng xung
-- **Video**: NTSC, PAL sync
-- **Protocol**: I²C, SPI, UART decode
-
-**Trigger level**: Ng°áng voltage Ă trigger
-
-#### 4.2.5 Measurements
-
-**Time domain**:
-- Period (T)
-- Frequency (f = 1/T)
-- Pulse width
-- Rise/fall time
-- Duty cycle
-
-**Voltage**:
-- Peak-to-peak (Vpp)
-- RMS
-- Average
-
-**Advanced**:
-- FFT (Fast Fourier Transform) ' Frequency spectrum
-- Math functions (Ch1 + Ch2, Ch1 - Ch2, Ch1 × Ch2)
-
-#### 4.2.6 Oscilloscope phƠ bi¿n
-
-**Budget**:
-- **Hantek DSO5072P**: 70MHz, 2-ch, ~$350
-- **Rigol DS1054Z**: 50MHz, 4-ch (hackable to 100MHz), ~$400
-
-**Mid-range**:
-- **Siglent SDS1104X-E**: 100MHz, 4-ch, ~$500
-- **Rigol DS2072A**: 70MHz, 2-ch, ~$600
-
-**Professional**:
-- **Keysight/Tektronix**: $2000+
-
-**DIY/USB Scope**:
-- **DSO150**: $25 kit, 1MHz (toy)
-- **Analog Discovery 2**: USB scope + logic analyzer, $280
-
-### 4.3 Function Generator
-
-#### 4.3.1 Chéc nng
-
-**T¡o tín hiÇu test**:
-- Sine wave
-- Square wave
-- Triangle wave
-- Sawtooth
-- Arbitrary waveform
-
-#### 4.3.2 Thông sÑ
-
-**Frequency range**: 1mHz - 100MHz (tùy model)
-**Amplitude**: 0 - 20Vpp
-**Offset**: DC bias
-**Duty cycle**: Cho square wave
-
-#### 4.3.3 Function generator phƠ bi¿n
-
-**Budget**:
-- **XR2206**: IC function gen (DIY)
-- **FY6900**: 60MHz, dual-channel, ~$60
-
-**Mid-range**:
-- **Siglent SDG1032X**: 30MHz, ~$300
-- **Rigol DG1022**: 25MHz, ~$300
-
-**DIY**:
-- **AD9850/AD9851 DDS module**: Arduino control, $5
-
-#### 4.3.4 Use cases
-
-- Test audio amplifiers (1kHz sine)
-- Test filters (sweep frequency)
-- PWM generation
-- Clock signal cho digital circuits
-- Modulation (AM, FM)
-
-### 4.4 Logic Analyzer
-
-#### 4.4.1 Chéc nng
-
-**Capture digital signals**:
-- NhiÁu kênh (8, 16, 32...)
-- Protocol decode (UART, SPI, I²C, CAN...)
-- Timing analysis
-
-**Khác vÛi Oscilloscope**:
-- Scope: Analog waveform (voltage vs time)
-- Logic analyzer: Digital (0/1 vs time)
-- Scope: 2-4 channels, high speed
-- LA: 8-32 channels, moderate speed
-
-#### 4.4.2 Logic analyzer phƠ bi¿n
-
-**Budget**:
-- **Saleae Logic Clone**: $10 (USB, 8-ch, 24MHz)
-- **Cypress FX2LP**: $5 (sigrok compatible)
-
-**Mid-range**:
-- **Saleae Logic 8**: $400 (official, 100MHz)
-- **DSLogic Plus**: $150 (16-ch, 400MHz)
-
-**Software**:
-- **PulseView** (sigrok): Open source, cross-platform
-- **Saleae Logic**: Official software
-
-#### 4.4.3 Protocol decode
-
-**Ví då I²C**:
-```
-Software tñ Ùng decode:
-SCL: ____q¯¯¯r___q¯¯¯r___q¯¯¯r___
-SDA: ____r___q¯¯¯r___q¯¯¯r___q
-
-' Decode: START | 0x50 | ACK | 0xA2 | ACK | STOP
-```
-
-**Protocols support**:
-- UART, SPI, I²C (phƠ bi¿n nh¥t)
-- CAN, LIN (automotive)
-- 1-Wire, PS/2
-- USB (c§n LA nhanh)
-
-### 4.5 Power Supply
-
-**Lab bench power supply**:
-- Adjustable voltage (0-30V)
-- Adjustable current limit (0-3A)
-- Display (V, I)
-- Multiple outputs (±12V, 5V, 3.3V)
-
-**PhƠ bi¿n**:
-- **KAIWEETS**: ~$100
-- **Siglent SPD3303X**: ~$300 (triple output)
-
-**DIY**: LM317 adjustable regulator (ph§n analog circuits)
-
----
-
-## 5. Advanced Projects
-
-### 5.1 Tube Amplifier (Vintage)
-
-**Vacuum tubes** (èn chân không):
-- Pre-transistor technology
-- Warm sound (harmonic distortion)
-- High voltage (200-400V) ' Nguy hiĂm!
-- Tubes: 12AX7, 12AU7 (preamp), 6L6, EL34 (power)
-
-**Design**: Phéc t¡p, c§n bi¿t high voltage safety
-
-### 5.2 Software Defined Radio (SDR)
-
-**ă nói ß ph§n 1.3**
-
-### 5.3 CNC Controller
-
-**Dùng Arduino/GRBL**:
-- Stepper motor control
-- G-code parser
-- 3-axis (X, Y, Z)
-
-### 5.4 DIY Oscilloscope
-
-**Dùng STM32 + TFT LCD**:
-- Fast ADC sampling
-- Display waveform
-- Bandwidth ~1MHz (limited by MCU ADC)
-
-### 5.5 Home Automation
-
-**ESP32/ESP8266 + MQTT**:
-- Smart switches (relay control)
-- Sensors (temp, humidity, motion)
-- Home Assistant integration
-
----
-
-## Tài liÇu tham kh£o
-
-1. **"The Art of Electronics"** - Horowitz & Hill (All chapters)
-2. **"High Speed Digital Design"** - Howard Johnson
-3. **"PCB Design Tutorial"** - David Jones (EEVblog)
-4. **KiCad documentation**: https://docs.kicad.org/
-5. **SDR tutorials**:
-   - RTL-SDR.com
-   - GNU Radio tutorials
-6. **Microcontroller**:
-   - Arduino Reference: https://www.arduino.cc/reference
-   - STM32 HAL documentation
-   - ESP32 docs: https://docs.espressif.com/
-7. **EEVblog**: Oscilloscope, multimeter tutorials
-8. **Great Scott!**: Project videos
-9. **Phil's Lab**: PCB design, embedded systems
-
----
-
-## L°u ư an toàn
-
-1. **High voltage** (Tube amps, CRT): Có thĂ gây ch¿t ng°Ưi!
-2. **RF transmission**: C§n gi¥y phép (ham radio license)
-3. **Lithium batteries**: Nguy c¡ cháy nƠ n¿u sai cách
-4. **Mains voltage** (220V): Luôn c©n th­n
-5. **ESD (Electrostatic Discharge)**: Dùng ESD wrist strap khi làm viÇc vÛi IC nh¡y c£m
-
----
-
-## Roadmap ti¿p theo
-
-**Sau khi hoàn thành Advanced Topics**:
-1. **Specialize**: ChÍn h°Ûng i (audio, RF, embedded, IoT...)
-2. **Join community**: Forums, hackerspaces, ham radio clubs
-3. **Contribute**: Open source projects, GitHub
-4. **Certifications**: Ham radio license (cho RF/SDR legal)
-5. **Professional work**: Electronics engineer, embedded engineer
-
-**Keep learning, keep making!**
+## Tài liệu tham khảo
+
+1. **PCB Design**: KiCad Documentation, Altium Tutorials
+2. **Communication**: I2C Specification (NXP), SPI Protocol
+3. **Wireless**: ESP32 Datasheet, LoRa Semtech AN1200
+4. **Projects**: Instructables, Hackster.io, Arduino Project Hub
+
+## Bài tập thực hành
+
+1. Thiết kế PCB đơn giản: Arduino UNO Shield với LED + Button
+2. Giao tiếp I2C: Đọc nhiệt độ từ BMP280 hiển thị lên OLED
+3. Tạo Web Server ESP32 điều khiển LED từ smartphone
+4. Truyền dữ liệu wireless giữa 2 Arduino bằng NRF24L01
+5. Robot tránh vật cản: Arduino + Ultrasonic + DC motor + L298N

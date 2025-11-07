@@ -1,1007 +1,286 @@
-# Lư thuy¿t iÇn tí SÑ (Digital Electronics)
+# Lý thuyết Điện tử Số (Digital Electronics)
 
-## 1. Logic Gates - CƠng Logic
+## 1. Logic Gates - Cổng Logic
 
-### 1.1 Khái niÇm c¡ b£n
+### 1.1 Khái niệm cơ bản
 
 #### Digital vs Analog
-- **Analog**: Tín hiÇu liên tåc (0V - 5V)
-- **Digital**: Tín hiÇu rƯi r¡c (chÉ có 2 méc)
+- **Analog**: Tín hiệu liên tục (0V - 5V)
+- **Digital**: Tín hiệu rời rạc (chỉ có 2 mức)
   - **Logic 0** (LOW, FALSE): 0V - 0.8V
-  - **Logic 1** (HIGH, TRUE): 2V - 5V (vÛi 5V logic)
+  - **Logic 1** (HIGH, TRUE): 2V - 5V (với 5V logic)
 
 #### Logic families
 - **TTL (Transistor-Transistor Logic)**:
-  - HÍ 74xx (74LS00, 7400...)
+  - Hệ 74xx (74LS00, 7400...)
   - VCC = 5V
-  - TÑc Ù trung b́nh
-  - Tiêu thå công su¥t cao
+  - Tốc độ trung bình
+  - Tiêu thụ công suất cao
 
 - **CMOS (Complementary Metal-Oxide-Semiconductor)**:
-  - HÍ 4000 (4011, 4017...), 74HC, 74HCT
-  - VCC = 3V - 15V (flexible)
-  - TÑc Ù cao (HC series)
-  - Tiêu thå công su¥t th¥p
-
-- **74HC vs 74HCT**:
-  - 74HC: CMOS logic levels
-  - 74HCT: TTL-compatible input
-
-### 1.2 CƠng Logic c¡ b£n
-
-#### 1.2.1 NOT Gate (Inverter)
-
-**Kư hiÇu**:
-```
-A >Ë Q
-
-Ho·c:
-
-A , Q
-    
-   ½
-```
-
-**B£ng chân trË (Truth Table)**:
-| A | Q |
-|---|---|
-| 0 | 1 |
-| 1 | 0 |
-
-**Công théc**: Q = NOT A =  = A'
-
-**M¡ch BJT ¡n gi£n**:
-```
-      Vcc
-       
-       RC
-       
-   C 4 Q (output)
- $
-       E  GND
- RB
- 
-A (input)
-```
-- A = 0 (LOW) ' Transistor OFF ' Q = VCC (HIGH)
-- A = 1 (HIGH) ' Transistor ON ' Q = 0 (LOW)
-
-**IC**: 7404 (6 NOT gates), 74HC04
-
-#### 1.2.2 AND Gate
-
-**Kư hiÇu**:
-```
-A 
-    D Q
-B 
-```
-
-**B£ng chân trË**:
-| A | B | Q |
-|---|---|---|
-| 0 | 0 | 0 |
-| 0 | 1 | 0 |
-| 1 | 0 | 0 |
-| 1 | 1 | 1 |
-
-**Công théc**: Q = A AND B = A · B = AB
-
-**Tính ch¥t**:
-- Q = 1 chÉ khi T¤T C¢ input = 1
-- GiÑng nh° "nhân logic"
-
-**èng dång**:
-- Enable/Disable tín hiÇu
-- Masking bits
-- Óng bÙ tín hiÇu
-
-**IC**: 7408 (4 AND gates 2-input), 74HC08
-
-#### 1.2.3 OR Gate
-
-**Kư hiÇu**:
-```
-A 
-    e Q
-B 
-```
-
-**B£ng chân trË**:
-| A | B | Q |
-|---|---|---|
-| 0 | 0 | 0 |
-| 0 | 1 | 1 |
-| 1 | 0 | 1 |
-| 1 | 1 | 1 |
-
-**Công théc**: Q = A OR B = A + B
-
-**Tính ch¥t**:
-- Q = 1 khi ÍT NH¤T MØT input = 1
-- GiÑng nh° "cÙng logic"
-
-**èng dång**:
-- GÙp nhiÁu nguÓn tín hiÇu
-- Wired-OR configuration
-- Flag checking
-
-**IC**: 7432 (4 OR gates 2-input), 74HC32
-
-#### 1.2.4 NAND Gate
-
-**Kư hiÇu**:
-```
-A 
-    DË Q
-B 
-```
-
-**B£ng chân trË**:
-| A | B | Q |
-|---|---|---|
-| 0 | 0 | 1 |
-| 0 | 1 | 1 |
-| 1 | 0 | 1 |
-| 1 | 1 | 0 |
-
-**Công théc**: Q = NOT(A AND B) = (A · B)' =  + B (De Morgan)
-
-**Tính ch¥t**:
-- **Universal gate**: Có thĂ t¡o t¥t c£ gate khác të NAND
-- Q = 0 chÉ khi T¤T C¢ input = 1
-- R», phƠ bi¿n nh¥t
-
-**T¡o gate khác të NAND**:
-```
-NOT: A 
-         DË Q = 
-      
-
-AND: A           DË NOT  Q = AB
-         DË$
-      B           
-
-OR:  A ,DË
-                DË Q = A + B
-      B 4DË
-```
-
-**IC**: 7400 (4 NAND gates), 74HC00
-
-#### 1.2.5 NOR Gate
-
-**Kư hiÇu**:
-```
-A 
-    eË Q
-B 
-```
-
-**B£ng chân trË**:
-| A | B | Q |
-|---|---|---|
-| 0 | 0 | 1 |
-| 0 | 1 | 0 |
-| 1 | 0 | 0 |
-| 1 | 1 | 0 |
-
-**Công théc**: Q = NOT(A OR B) = (A + B)' =  · B (De Morgan)
-
-**Tính ch¥t**:
-- **Universal gate** (giÑng NAND)
-- Q = 1 chÉ khi T¤T C¢ input = 0
-
-**IC**: 7402 (4 NOR gates), 74HC02
-
-#### 1.2.6 XOR Gate (Exclusive OR)
-
-**Kư hiÇu**:
-```
-A 
-    =1 Q
-B 
-```
-
-**B£ng chân trË**:
-| A | B | Q |
-|---|---|---|
-| 0 | 0 | 0 |
-| 0 | 1 | 1 |
-| 1 | 0 | 1 |
-| 1 | 1 | 0 |
-
-**Công théc**: Q = A XOR B = A • B = A·B + ·B
-
-**Tính ch¥t**:
-- Q = 1 khi sÑ l°ăng input = 1 là Lº
-- "Khác nhau" detector
-- Ñi xéng: A•B = B•A
-
-**èng dång**:
-- Comparator (so sánh bit)
-- Half adder (bÙ cÙng nía)
-- Parity generator/checker
-- Encryption
-
-**IC**: 7486 (4 XOR gates), 74HC86
-
-#### 1.2.7 XNOR Gate (Exclusive NOR)
-
-**Kư hiÇu**:
-```
-A 
-    =Ë Q
-B 
-```
-
-**B£ng chân trË**:
-| A | B | Q |
-|---|---|---|
-| 0 | 0 | 1 |
-| 0 | 1 | 0 |
-| 1 | 0 | 0 |
-| 1 | 1 | 1 |
-
-**Công théc**: Q = NOT(A XOR B) = (A • B)' = A·B + ·B
-
-**Tính ch¥t**:
-- Q = 1 khi A = B ("giÑng nhau" detector)
-- Equality detector
-
-**IC**: 74266, 74HC266
-
-### 1.3 Ënh lu­t De Morgan
-
-**Hai lu­t quan trÍng**:
-```
-1. (A · B)' =  + B
-   NOT(A AND B) = (NOT A) OR (NOT B)
-
-2. (A + B)' =  · B
-   NOT(A OR B) = (NOT A) AND (NOT B)
-```
-
-**èng dång**:
-- ¡n gi£n hóa m¡ch logic
-- ChuyĂn Ơi NAND " OR-NOT
-- ChuyĂn Ơi NOR " AND-NOT
-
-### 1.4 Boolean Algebra
-
-**Các Ënh lu­t c¡ b£n**:
-```
-1. Identity:
-   A + 0 = A
-   A · 1 = A
-
-2. Null:
-   A + 1 = 1
-   A · 0 = 0
-
-3. Idempotent:
-   A + A = A
-   A · A = A
-
-4. Complement:
-   A +  = 1
-   A ·  = 0
-   ()' = A
-
-5. Commutative:
-   A + B = B + A
-   A · B = B · A
-
-6. Associative:
-   (A + B) + C = A + (B + C)
-   (A · B) · C = A · (B · C)
-
-7. Distributive:
-   A · (B + C) = A·B + A·C
-   A + (B · C) = (A+B) · (A+C)
-
-8. Absorption:
-   A + A·B = A
-   A · (A+B) = A
-```
+  - Hệ 74HCxx, 74LCxx, CD4xxx
+  - VCC = 3-15V
+  - Tiêu thụ công suất rất thấp
+  - Tốc độ cao
+  - **Phổ biến hơn hiện nay**
+
+### 1.2 Các cổng logic cơ bản
+
+#### 1. Cổng NOT (Inverter)
+- **Chức năng**: Đảo tín hiệu
+- **Ký hiệu**: Y = NOT A = Ā
+- **Bảng chân trị**:
+  | A | Y |
+  |---|---|
+  | 0 | 1 |
+  | 1 | 0 |
+
+#### 2. Cổng AND
+- **Chức năng**: Y = 1 khi TẤT CẢ đầu vào = 1
+- **Ký hiệu**: Y = A AND B = A·B
+- **Bảng chân trị**:
+  | A | B | Y |
+  |---|---|---|
+  | 0 | 0 | 0 |
+  | 0 | 1 | 0 |
+  | 1 | 0 | 0 |
+  | 1 | 1 | 1 |
+
+#### 3. Cổng OR
+- **Chức năng**: Y = 1 khi CÓ ÍT NHẤT MỘT đầu vào = 1
+- **Ký hiệu**: Y = A OR B = A+B
+- **Bảng chân trị**:
+  | A | B | Y |
+  |---|---|---|
+  | 0 | 0 | 0 |
+  | 0 | 1 | 1 |
+  | 1 | 0 | 1 |
+  | 1 | 1 | 1 |
+
+#### 4. Cổng NAND (NOT-AND)
+- **Phổ biến nhất** - có thể tạo mọi cổng khác
+- Y = 1 trừ khi TẤT CẢ đầu vào = 1
+- **Bảng chân trị**:
+  | A | B | Y |
+  |---|---|---|
+  | 0 | 0 | 1 |
+  | 0 | 1 | 1 |
+  | 1 | 0 | 1 |
+  | 1 | 1 | 0 |
+
+#### 5. Cổng NOR (NOT-OR)
+- Y = 1 chỉ khi TẤT CẢ đầu vào = 0
+- **Bảng chân trị**:
+  | A | B | Y |
+  |---|---|---|
+  | 0 | 0 | 1 |
+  | 0 | 1 | 0 |
+  | 1 | 0 | 0 |
+  | 1 | 1 | 0 |
+
+#### 6. Cổng XOR (Exclusive-OR)
+- Y = 1 khi số lượng đầu vào = 1 là LẺ
+- **Ứng dụng**: So sánh, cộng nhị phân
+- **Bảng chân trị**:
+  | A | B | Y |
+  |---|---|---|
+  | 0 | 0 | 0 |
+  | 0 | 1 | 1 |
+  | 1 | 0 | 1 |
+  | 1 | 1 | 0 |
 
 ---
 
-## 2. Combinational Logic - Logic tƠ hăp
+## 2. Đại số Boolean
 
-### 2.1 Half Adder (BÙ cÙng nía)
+### 2.1 Định luật cơ bản
 
-**Chéc nng**: CÙng 2 bit A + B
+#### Luật giao hoán
+- A + B = B + A
+- A · B = B · A
 
-**B£ng chân trË**:
-| A | B | Sum | Carry |
-|---|---|-----|-------|
-| 0 | 0 |  0  |   0   |
-| 0 | 1 |  1  |   0   |
-| 1 | 0 |  1  |   0   |
-| 1 | 1 |  0  |   1   |
+#### Luật kết hợp
+- A + (B + C) = (A + B) + C
+- A · (B · C) = (A · B) · C
 
-**Công théc**:
-```
-Sum = A • B
-Carry = A · B
-```
+#### Luật phân phối
+- A · (B + C) = A·B + A·C
+- A + (B · C) = (A + B) · (A + C)
 
-**S¡ Ó logic**:
-```
-A ,
-      =1 Sum
-B <
-    
-    
-       D Carry
-    
-```
+#### Luật De Morgan (rất quan trọng)
+- NOT(A + B) = NOT(A) · NOT(B)
+- NOT(A · B) = NOT(A) + NOT(B)
 
-### 2.2 Full Adder (BÙ cÙng §y ç)
-
-**Chéc nng**: CÙng 3 bit A + B + Cin
-
-**Công théc**:
-```
-Sum = A • B • Cin
-Carry = A·B + B·Cin + A·Cin
-```
-
-**èng dång**: CÙng sÑ nhiÁu bit (cascade nhiÁu Full Adder)
-
-### 2.3 Multiplexer (MUX)
-
-**Chéc nng**: ChÍn 1 trong N input theo Ëa chÉ select
-
-**MUX 4-to-1**:
-```
-         
-   I0 $0       
-   I1 $1      Q Output
-   I2 $2       
-   I3 $3       
-                 
-   S0 $S0      
-   S1 $S1      
-         
-```
-
-**B£ng chÍn**:
-| S1 | S0 | Output |
-|----|----|----|
-| 0  | 0  | I0 |
-| 0  | 1  | I1 |
-| 1  | 0  | I2 |
-| 1  | 1  | I3 |
-
-**IC**: 74151 (8-to-1), 74153 (dual 4-to-1)
-
-**èng dång**:
-- Data routing
-- Parallel-to-serial conversion
-- Function generator (vÛi ROM)
-
-### 2.4 Demultiplexer (DEMUX) / Decoder
-
-**Chéc nng**: Ënh tuy¿n 1 input ¿n N output theo Ëa chÉ
-
-**Decoder 2-to-4**:
-```
-         
-   A0 $A0     Y0
-   A1 $A1     Y1
-                Y2
-    E $EN     Y3
-         
-```
-
-**B£ng chân trË** (Active LOW output):
-| E | A1 | A0 | Y0 | Y1 | Y2 | Y3 |
-|---|----|----|----|----|----|----|
-| 1 | X  | X  | 1  | 1  | 1  | 1  |
-| 0 | 0  | 0  | 0  | 1  | 1  | 1  |
-| 0 | 0  | 1  | 1  | 0  | 1  | 1  |
-| 0 | 1  | 0  | 1  | 1  | 0  | 1  |
-| 0 | 1  | 1  | 1  | 1  | 1  | 0  |
-
-**IC**: 74138 (3-to-8), 74154 (4-to-16)
-
-**èng dång**:
-- Address decoding (chÍn chip trong hÇ thÑng)
-- LED display driver
-- Serial-to-parallel conversion
+### 2.2 Đơn giản hóa biểu thức
+- Dùng bảng Karnaugh (K-map)
+- Tối ưu hóa mạch logic
+- Giảm số lượng cổng cần dùng
 
 ---
 
-## 3. Sequential Logic - Logic tu§n tñ
+## 3. Flip-Flop và Latch
 
-### 3.1 Latch vs Flip-Flop
+### 3.1 SR Latch (Set-Reset)
+- **2 trạng thái**: Set (S=1, R=0) → Q=1
+- Reset (S=0, R=1) → Q=0
+- **Trạng thái cấm**: S=1, R=1
 
-| ·c iĂm | Latch | Flip-Flop |
-|----------|-------|-----------|
-| Trigger | Level-triggered | Edge-triggered |
-| Transparent | Có (khi Enable) | Không |
-| Clock | Không c§n | C§n clock |
-| èng dång | L°u trï t¡m | Óng bÙ, counter |
+### 3.2 D Flip-Flop
+- **Phổ biến nhất**
+- Q = D (khi có xung clock)
+- Dùng để lưu trữ 1 bit
+- **IC**: 7474 (Dual D FF)
 
-### 3.2 SR Latch (Set-Reset Latch)
+### 3.3 JK Flip-Flop
+- Khắc phục nhược điểm SR
+- J=1, K=1 → Toggle (đảo Q)
+- **IC**: 7476
 
-#### SR Latch b±ng NOR
-
-**S¡ Ó**:
-```
-S 
-    eË, Q
-         
-          
-              
-   $
-               eË Q
-R 
-```
-
-**B£ng chân trË**:
-| S | R | Q | Q | Chéc nng |
-|---|---|---|---|-----------|
-| 0 | 0 | Q | Q | Giï (Hold) |
-| 1 | 0 | 1 | 0 | Set |
-| 0 | 1 | 0 | 1 | Reset |
-| 1 | 1 | X | X | C¥m (Invalid) |
-
-**·c iĂm**:
-- S = 1: Set Q = 1
-- R = 1: Reset Q = 0
-- S = R = 1: Tr¡ng thái không xác Ënh (tránh!)
-
-#### SR Latch b±ng NAND (active LOW)
-
-**S¡ Ó**: T°¡ng tñ nh°ng dùng NAND, S và R active LOW
-
-**B£ng chân trË**:
-| S | R | Q | Q |
-|---|---|---|---|
-| 1 | 1 | Q | Q | Giï |
-| 0 | 1 | 1 | 0 | Set |
-| 1 | 0 | 0 | 1 | Reset |
-| 0 | 0 | X | X | C¥m |
-
-### 3.3 D Latch (Data Latch)
-
-**S¡ Ó**:
-```
-        
-   D $D      Q Q
-                
-   E $EN    Q Q
-        
-```
-
-**B£ng chân trË**:
-| E | D | Q | Chéc nng |
-|---|---|---|-----------|
-| 0 | X | Q | Giï |
-| 1 | 0 | 0 | Transparent (Q = D) |
-| 1 | 1 | 1 | Transparent |
-
-**·c iĂm**:
-- Khi E = 1: Q theo D (transparent)
-- Khi E = 0: Q giï nguyên (latch)
-
-**IC**: 7475 (4-bit D latch), 74373 (8-bit D latch)
-
-**èng dång**:
-- Data storage
-- Address latch
-- Input debouncing
-
-### 3.4 D Flip-Flop
-
-**S¡ Ó**:
-```
-        
-   D $D      Q Q
-                
-  CLK $>CLK  Q Q
-        
-```
-
-**Ho¡t Ùng**:
-- **Edge-triggered**: Q thay Ơi CHÈ t¡i c¡nh clock (' ho·c ")
-- C¡nh lên (positive edge): '
-- C¡nh xuÑng (negative edge): "
-
-**B£ng chân trË**:
-| CLK | D | Q_next |
-|-----|---|--------|
-| '   | 0 | 0      |
-| '   | 1 | 1      |
-|    | X | Q (giï) |
-
-**·c iĂm**:
-- Không transparent (khác latch)
-- Óng bÙ vÛi clock
-- Ôn Ënh, không bË race condition
-
-**IC**: 7474 (dual D FF), 74174 (hex D FF)
-
-**èng dång**:
-- Register
-- Counter
-- State machine
-- Synchronizer
-
-### 3.5 JK Flip-Flop
-
-**S¡ Ó**:
-```
-        
-   J $J      Q Q
-                
-  CLK $>CLK  Q Q
-                
-   K $K       
-        
-```
-
-**B£ng chân trË**:
-| CLK | J | K | Q_next | Chéc nng |
-|-----|---|---|--------|-----------|
-| '   | 0 | 0 | Q      | Giï |
-| '   | 0 | 1 | 0      | Reset |
-| '   | 1 | 0 | 1      | Set |
-| '   | 1 | 1 | Q      | Toggle (£o) |
-
-**·c iĂm**:
-- Kh¯c phåc h¡n ch¿ cça SR FF (không có tr¡ng thái c¥m)
-- J=K=1: Toggle mode (r¥t hïu ích cho counter)
-
-**IC**: 7473, 7476, 74109
-
-**èng dång**:
-- Counter (T flip-flop mode: J=K=1)
-- Frequency divider
-- State machine
-
-### 3.6 T Flip-Flop (Toggle)
-
-**S¡ Ó**:
-```
-        
-   T $T      Q Q
-                
-  CLK $>CLK  Q Q
-        
-```
-
-**B£ng chân trË**:
-| CLK | T | Q_next |
-|-----|---|--------|
-| '   | 0 | Q      |
-| '   | 1 | Q      |
-
-**·c iĂm**:
-- T = 1: £o tr¡ng thái m×i clock
-- Thñc ch¥t là JK FF vÛi J=K=T
-
-**èng dång**:
-- Binary counter
-- Frequency divider chia 2
-- Clock generator
+### 3.4 T Flip-Flop (Toggle)
+- Toggle Q mỗi khi có xung clock
+- **Ứng dụng**: Đếm, chia tần
 
 ---
 
-## 4. Counter - BÙ ¿m
+## 4. Counter (Bộ đếm)
 
-### 4.1 Asynchronous Counter (Ripple Counter)
+### 4.1 Counter không đồng bộ (Ripple Counter)
+- Xung clock truyền qua từng FF
+- Đơn giản nhưng chậm
+- **IC**: 7490 (Decade counter), 7493 (4-bit binary)
 
-**S¡ Ó 4-bit binary counter**:
-```
-                   
-CLK $>        >        >        >    
-         T  Q$  T  Q$  T  Q$  T  
-                   
-          Q0         Q1         Q2         Q3
-```
+### 4.2 Counter đồng bộ (Synchronous Counter)
+- Tất cả FF nhận clock cùng lúc
+- Nhanh hơn, ổn định hơn
+- **IC**: 74161 (4-bit binary), 74190 (Up/Down decade)
 
-**Ho¡t Ùng**:
-- M×i T FF toggle khi input có c¡nh xuÑng
-- Q0 £o m×i CLK
-- Q1 £o m×i 2 CLK
-- Q2 £o m×i 4 CLK
-- Q3 £o m×i 8 CLK
-
-**¿m**: 0000 ' 0001 ' 0010 ' 0011 ' ... ' 1111 ' 0000
-
-**¯u iĂm**:
-- ¡n gi£n
-- Ít linh kiÇn
-
-**Nh°ăc iĂm**:
-- Ripple delay (ch­m, l×i tích liy)
-- Không Óng bÙ
-
-**IC**: 7493 (4-bit binary), 7490 (BCD decade)
-
-### 4.2 Synchronous Counter
-
-**·c iĂm**:
-- T¥t c£ FF trigger cùng lúc bßi CLK chung
-- Không có ripple delay
-- Nhanh, Óng bÙ
-
-**IC**: 74161 (4-bit binary), 74190 (BCD up/down)
-
-### 4.3 Decade Counter (BCD Counter)
-
-**¿m të 0-9 (BCD)**:
-0000 ' 0001 ' 0010 ' ... ' 1001 ' 0000
-
-**IC**: 7490, 74190
-
-**èng dång**:
-- LED 7-segment display
-- Frequency counter
-- Timer
-
-### 4.4 IC 4017 (Decade Counter with 10 decoded outputs)
-
-**·c iĂm ·c biÇt**:
-- 10 output Q0-Q9
-- M×i clock, chÉ 1 output = HIGH (l§n l°ăt Q0'Q1'...'Q9)
-- R¥t dÅ dùng cho LED chaser
-
-**Pinout**:
-```
-        
-   CLK $1   16 VDD
-   INH $2   15 RESET
-    Q0 $3   14 CLK EN
-    Q1 $4   13 Q5
-    Q2 $5   12 Q4
-    Q3 $6   11 Q6-Q9
-    Q7 $7   10 CARRY OUT
-   GND $8    9 Q8
-        
-```
-
-**èng dång phƠ bi¿n**:
-- LED chaser 10 LED
-- Knight Rider effect
-- Sequential timer
-- Divide-by-10
+### 4.3 Ứng dụng
+- Đếm sự kiện
+- Chia tần số
+- Tạo delay
+- Digital clock
 
 ---
 
-## 5. Shift Register
+## 5. Shift Register (Thanh ghi dịch)
 
-### 5.1 Khái niÇm
+### 5.1 Các loại
+- **SISO** (Serial In Serial Out)
+- **SIPO** (Serial In Parallel Out) - Phổ biến
+- **PISO** (Parallel In Serial Out)
+- **PIPO** (Parallel In Parallel Out)
 
-**Chéc nng**: DËch chuyĂn data theo clock
+### 5.2 IC phổ biến
+- **74HC595** (SIPO): Điều khiển nhiều LED/7-segment từ Arduino
+- **74HC165** (PISO): Đọc nhiều nút nhấn
+- **74HC164**: 8-bit SIPO đơn giản
 
-**Phân lo¡i**:
-- **SISO**: Serial In, Serial Out
-- **SIPO**: Serial In, Parallel Out
-- **PISO**: Parallel In, Serial Out
-- **PIPO**: Parallel In, Parallel Out
-
-### 5.2 SISO (Serial In Serial Out)
-
-**S¡ Ó 4-bit**:
-```
-                
-Data $D Q$D Q$D Q$D Q Output
-       >     >     >     >  
-CLK 4444444
-```
-
-**Ho¡t Ùng**:
-- Data vào tëng bit mÙt
-- M×i clock, data dËch sang ph£i 1 bit
-- Sau 4 clock, data ra h¿t
-
-**èng dång**:
-- Delay line
-- Data transmission (slow to fast)
-
-### 5.3 SIPO (Serial In Parallel Out)
-
-**Chéc nng**:
-- Input: Serial (tëng bit)
-- Output: Parallel (t¥t c£ bit cùng lúc)
-
-**èng dång**:
-- Serial to parallel conversion
-- LED/LCD driver (ti¿t kiÇm pin MCU)
-- Expand I/O
-
-**IC**: 74164, 74595
-
-### 5.4 IC 74HC595 (8-bit SIPO Shift Register)
-
-**·c iĂm quan trÍng**:
-- 8-bit serial in, parallel out
-- Storage register (latch) riêng
-- Cascade °ăc (daisy chain)
-
-**Pinout**:
-```
-        
-   QB $1   16 VCC
-   QC $2   15 QA
-   QD $3   14 SER (Data)
-   QE $4   13 OE (Output Enable)
-   QF $5   12 RCLK (Latch)
-   QG $6   11 SRCLK (Shift Clock)
-   QH $7   10 SRCLR (Clear)
-  GND $8    9 QH' (Serial Out)
-        
-```
-
-**Cách dùng vÛi Arduino**:
-```cpp
-// Pins
-#define DATA_PIN  11  // SER
-#define LATCH_PIN 12  // RCLK
-#define CLOCK_PIN 13  // SRCLK
-
-void setup() {
-  pinMode(DATA_PIN, OUTPUT);
-  pinMode(LATCH_PIN, OUTPUT);
-  pinMode(CLOCK_PIN, OUTPUT);
-}
-
-void shiftOut595(byte data) {
-  digitalWrite(LATCH_PIN, LOW);
-  shiftOut(DATA_PIN, CLOCK_PIN, MSBFIRST, data);
-  digitalWrite(LATCH_PIN, HIGH);
-}
-```
-
-**èng dång**:
-- LED matrix driver
-- 7-segment display (nhiÁu digit)
-- Expand GPIO (8 pin ' 3 pin)
-
-**Cascade nhiÁu 74595**:
-```
-MCU , SER [595_1] QH'  SER [595_2] QH'  ...
-            8 outputs              8 outputs
-      SRCLK ,,
-      RCLK  44
-
-' Có thĂ iÁu khiĂn 16, 24, 32... output chÉ vÛi 3 pin!
-```
-
-### 5.5 PISO (Parallel In Serial Out)
-
-**IC**: 74165, 74166
-
-**èng dång**:
-- Parallel to serial conversion
-- Expand input pins (Íc nhiÁu button vÛi ít pin)
+### 5.3 Ứng dụng
+- Mở rộng GPIO cho MCU
+- Truyền dữ liệu nối tiếp
+- LED matrix, 7-segment display
+- Keyboard scanning
 
 ---
 
-## 6. ADC/DAC c¡ b£n
+## 6. Encoder và Decoder
 
-### 6.1 ADC (Analog-to-Digital Converter)
+### 6.1 Encoder
+- Chuyển đổi nhiều đầu vào → mã nhị phân
+- **Ví dụ**: 8 nút nhấn → 3 bit (2³=8)
+- **IC**: 74HC148 (8-to-3)
 
-#### Khái niÇm
-ChuyĂn Ơi tín hiÇu analog (liên tåc) thành digital (rƯi r¡c)
-
-#### Thông sÑ quan trÍng
-
-**1. Resolution (Ù phân gi£i)**:
-- SÑ bit: 8-bit, 10-bit, 12-bit, 16-bit...
-- SÑ level = 2^n
-  - 8-bit: 256 levels (0-255)
-  - 10-bit: 1024 levels (0-1023)
-  - 12-bit: 4096 levels (0-4095)
-
-**2. Step size (LSB)**:
-```
-LSB = V_ref / (2^n)
-
-Ví då: 10-bit ADC, Vref = 5V
-LSB = 5 / 1024 H 4.88mV
-```
-
-**3. Sampling rate**:
-- SÑ m«u trên giây (samples per second - SPS)
-- Ënh lư Nyquist: fs e 2 × f_max
-
-**4. Conversion time**:
-- ThƯi gian chuyĂn Ơi mÙt m«u
-
-#### Các lo¡i ADC
-
-**1. Flash ADC**:
-- Nhanh nh¥t
-- ¯t, phéc t¡p
-- Dùng trong oscilloscope
-
-**2. Successive Approximation (SAR) ADC**:
-- TÑc Ù trung b́nh (1-5 MSPS)
-- PhƠ bi¿n nh¥t
-- Arduino ADC, MCU ADC
-
-**3. Delta-Sigma (ӣ) ADC**:
-- Ch­m, Ù phân gi£i cao
-- Audio, measurement
-- 16-bit, 24-bit
-
-**4. Dual-Slope ADC**:
-- Ch­m, chính xác
-- Multimeter, weighing scale
-
-#### ADC trong Arduino
-```cpp
-int value = analogRead(A0); // 0-1023 (10-bit)
-float voltage = value * (5.0 / 1023.0);
-```
-
-**Thông sÑ Arduino ADC**:
-- Resolution: 10-bit
-- Vref: 5V (Uno) ho·c 3.3V (Due)
-- Range: 0-1023
-- Sampling rate: ~10kSPS
-
-### 6.2 DAC (Digital-to-Analog Converter)
-
-#### Khái niÇm
-ChuyĂn Ơi tín hiÇu digital thành analog
-
-#### R-2R Ladder DAC
-
-**S¡ Ó 4-bit**:
-```
-D3 , 2R , 2R , 2R , 2R  GND
-                      
-   2R     2R     2R     2R
-                      
-               
-   D2     D1     D0     GND
-                
-    44 Vout (via op-amp)
-```
-
-**Công théc**:
-```
-Vout = Vref × (D3×2³ + D2×2² + D1×2¹ + D0×2p) / 2^n
-
-Ví då: 4-bit DAC, Vref = 5V, input = 1010 (10)
-Vout = 5 × 10 / 16 = 3.125V
-```
-
-**·c iĂm**:
-- ¡n gi£n (chÉ c§n 2 giá trË R)
-- R»
-- Ù chính xác phå thuÙc tolerance R
-
-#### IC DAC phƠ bi¿n
-
-| IC | Bits | Interface | èng dång |
-|----|------|-----------|----------|
-| DAC0808 | 8 | Parallel | General purpose |
-| MCP4725 | 12 | I²C | Arduino, audio |
-| AD5328 | 12 | SPI | Multi-channel |
-| PCM5102 | 24 | I²S | Audio Hi-Fi |
-
-#### PWM as DAC (Arduino)
-
-**Nguyên lư**:
-```
-PWM      
-                   (l·p l¡i)
-
-LÍc qua RC ' DC trung b́nh
-```
-
-**Arduino code**:
-```cpp
-analogWrite(9, 128); // 50% duty ' ~2.5V (sau RC filter)
-
-// RC filter:
-Pin /\/\/\ 1k© , Vout
-                    
-                   === 10µF
-                    
-                   GND
-```
-
-**Cutoff frequency**:
-```
-fc = 1 / (2À × R × C)
-fc = 1 / (2À × 1000 × 10×10{v) H 16Hz
-
-PWM freq (Arduino) = 490Hz ho·c 980Hz
-' fc << PWM freq ' LÍc tÑt
-```
-
-**èng dång**:
-- LED dimming
-- Motor speed control
-- Audio output ¡n gi£n
+### 6.2 Decoder
+- Chuyển đổi mã nhị phân → kích hoạt 1 đầu ra
+- **Ứng dụng**: Chọn địa chỉ memory, điều khiển 7-segment
+- **IC**:
+  - 74HC138: 3-to-8 decoder
+  - 7442: BCD-to-Decimal decoder
+  - 7447: BCD-to-7-segment decoder
 
 ---
 
-## 7. Memory
+## 7. Multiplexer và Demultiplexer
 
-### 7.1 Phân lo¡i
+### 7.1 Multiplexer (MUX)
+- Chọn 1 trong nhiều đầu vào → đầu ra
+- **IC**:
+  - 74HC157: 4-to-1 Quad MUX
+  - 74HC4051: 8-to-1 Analog MUX
+  - 74HC4067: 16-to-1 Analog MUX
 
-#### Volatile (M¥t dï liÇu khi t¯t nguÓn)
-- **SRAM (Static RAM)**:
-  - Nhanh, ¯t
-  - Dùng latch/FF
-  - Cache, register
-- **DRAM (Dynamic RAM)**:
-  - Ch­m h¡n, r» h¡n
-  - Dùng capacitor
-  - Main memory (DDR3, DDR4)
+**Ứng dụng**:
+- Chọn kênh ADC
+- Data selector
+- Tiết kiệm GPIO
 
-#### Non-volatile (Giï dï liÇu khi t¯t nguÓn)
-- **ROM (Read-Only Memory)**:
-  - Mask ROM, PROM, EPROM, EEPROM
-- **Flash memory**:
-  - USB drive, SSD, MCU program memory
-
-### 7.2 EEPROM
-
-**IC**: 24C02, 24C64, 24C256 (I²C), 25LC256 (SPI)
-
-**·c iĂm**:
-- Read/write nhiÁu l§n (100k - 1M cycles)
-- Non-volatile
-- Ch­m h¡n SRAM
-
-**èng dång**:
-- L°u c¥u h́nh
-- Data logging
-- Calibration data
+### 7.2 Demultiplexer (DEMUX)
+- Phân phối 1 đầu vào → nhiều đầu ra
+- Ngược với MUX
 
 ---
 
-## Bài t­p thñc hành
+## 8. Memory (Bộ nhớ)
 
-1. V½ m¡ch AND gate b±ng NAND
-2. ¡n gi£n hóa: F = AB + AB
-3. Thi¿t k¿ Full Adder b±ng 2 Half Adder
-4. Thi¿t k¿ 4-bit binary counter b±ng T flip-flop
-5. Tính LSB cça ADC 12-bit, Vref = 3.3V
-6. Thi¿t k¿ DAC R-2R 3-bit vÛi Vref = 5V, tính Vout khi input = 101
-7. Gi£i thích cách cascade 3 IC 74595 Ă có 24 output
-8. Tính fc cça RC filter cho PWM DAC: R=4.7k©, C=4.7µF
+### 8.1 Các loại memory
 
----
+#### RAM (Random Access Memory)
+- **SRAM**: Nhanh, đắt, dùng trong cache
+- **DRAM**: Chậm hơn, rẻ hơn, cần refresh
 
-## Tài liÇu tham kh£o
+#### ROM (Read-Only Memory)
+- **PROM**: Ghi 1 lần
+- **EPROM**: Xóa bằng UV
+- **EEPROM**: Xóa bằng điện, ghi chậm
+- **Flash**: EEPROM cải tiến, ghi nhanh hơn
 
-1. **"Digital Design"** - Morris Mano
-2. **"The Art of Electronics"** - Horowitz & Hill (Chapter 10-11)
-3. **Datasheet**:
-   - 7400, 7404, 7408, 7432, 7486
-   - 7474, 7476, 7490, 7493
-   - 74595, 4017
-   - MCP4725, DAC0808
-4. **All About Circuits**: Digital circuits chapters
-5. **Ben Eater YouTube**: Digital logic breadboard projects
+### 8.2 IC EEPROM phổ biến
+- **AT24Cxx**: I2C EEPROM (24C32: 32Kbit = 4KB)
+- **25LCxxx**: SPI EEPROM
+- **Ứng dụng**: Lưu cấu hình, dữ liệu quan trọng
 
 ---
 
-## IC phƠ bi¿n tóm t¯t
+## 9. Microcontroller cơ bản
 
-| IC | Chéc nng | SÑ l°ăng gates/FFs |
-|----|-----------|-------------------|
-| 7400 | NAND | 4 gates |
-| 7404 | NOT | 6 gates |
-| 7408 | AND | 4 gates |
-| 7432 | OR | 4 gates |
-| 7486 | XOR | 4 gates |
-| 7474 | D flip-flop | 2 FFs |
-| 7490 | Decade counter | BCD 0-9 |
-| 7493 | Binary counter | 4-bit 0-15 |
-| 4017 | Decade counter | 10 decoded outputs |
-| 74138 | 3-to-8 decoder | 1 decoder |
-| 74595 | Shift register | 8-bit SIPO |
-| 74165 | Shift register | 8-bit PISO |
+### 9.1 Kiến trúc MCU
+- **CPU**: Xử lý lệnh
+- **Memory**: RAM, Flash, EEPROM
+- **GPIO**: Input/Output pins
+- **Peripherals**: ADC, UART, SPI, I2C, PWM, Timer
+
+### 9.2 MCU phổ biến cho DIY
+
+#### Arduino (AVR)
+- **ATmega328P** (Arduino UNO): 32KB Flash, 2KB RAM, 16MHz
+- **ATmega2560** (Arduino MEGA): 256KB Flash, 8KB RAM
+
+#### ESP32
+- WiFi + Bluetooth tích hợp
+- Dual core 240MHz
+- 520KB RAM, 4MB Flash
+- 18x ADC 12-bit
+- **Rất phổ biến** cho IoT
+
+#### STM32
+- ARM Cortex-M
+- Hiệu năng cao
+- Nhiều peripheral
+- **STM32F103 (Blue Pill)**: Rẻ, mạnh
+
+---
+
+## Tài liệu tham khảo
+
+1. **Digital Design** (Morris Mano)
+2. **The Art of Electronics** - Chapter 10-11
+3. **Practical Electronics for Inventors** - Chapter 12
+4. **Datasheets**: 74HCxx series, Arduino, ESP32
+
+## Bài tập thực hành
+
+1. Thiết kế mạch cộng 2 số 4-bit (Full Adder)
+2. Tạo bộ đếm 0-9 bằng 74HC161 + 7447 + 7-segment
+3. Điều khiển 16 LED bằng Arduino + 2x 74HC595
+4. Thiết kế mạch đèn giao thông 3 màu bằng 555 + counter
+5. Đọc 8 nút nhấn bằng Arduino + 74HC165 (chỉ dùng 3 GPIO)

@@ -1,854 +1,309 @@
-# Lý thuy¿t Linh kiÇn Tích cñc (Active Components)
+# Lý thuyết Linh kiện Tích cực (Active Components)
 
-## 1. Diode - iÑt bán d«n
+## 1. Diode - Điốt bán dẫn
 
-### 1.1 C¥u t¡o và nguyên lý ho¡t Ùng
+### 1.1 Cấu tạo và nguyên lý hoạt động
 
-#### C¥u t¡o
-- **Ch¥t bán d«n P-N**: Hai vùng bán d«n P (thi¿u electron) và N (thëa electron) ghép vÛi nhau
-- **Vùng nghèo**: Vùng giïa hai lÛp P-N không có h¡t t£i tñ do
-- **Hai cñc**: Anode (+) nÑi vÛi vùng P, Cathode (-) nÑi vÛi vùng N
+#### Cấu tạo
+- **Chất bán dẫn P-N**: Hai vùng bán dẫn P (thiếu electron) và N (thừa electron) ghép với nhau
+- **Vùng nghèo**: Vùng giữa hai lớp P-N không có hạt tải tự do
+- **Hai cực**: Anode (+) nối với vùng P, Cathode (-) nối với vùng N
 
 #### Nguyên lý
-- **Phân cñc thu­n (Forward Bias)**: Anode (+) Cathode (-)
-  - Dòng iÇn ch¡y qua
-  - iÇn áp r¡i kho£ng 0.7V (Si) ho·c 0.3V (Ge)
+- **Phân cực thuận (Forward Bias)**: Anode (+) > Cathode (-)
+  - Dòng điện chạy qua
+  - Điện áp rơi khoảng 0.7V (Si) hoặc 0.3V (Ge)
 
-- **Phân cñc ng°ãc (Reverse Bias)**: Anode (-) Cathode (+)
-  - Dòng iÇn không ch¡y qua (chÉ có dòng rò r¥t nhÏ)
-  - Vùng nghèo mß rÙng
+- **Phân cực ngược (Reverse Bias)**: Anode (-) < Cathode (+)
+  - Dòng điện không chạy qua (chỉ có dòng rò rất nhỏ)
+  - Vùng nghèo mở rộng
 
-### 1.2 ·c tính I-V cça Diode
+### 1.2 Các loại Diode phổ biến
 
-```
-I (mA)
-  |
-  |         /
-  |        /
-  |       /
-  |------+----------- V (V)
- -Vbr   0   0.7V
-      |
-      | (Reverse)
-```
+#### 1. Diode chỉnh lưu (Rectifier Diode)
+- **Ký hiệu**: 1N4001, 1N4007, 1N5408
+- **Ứng dụng**:
+  - Chỉnh lưu AC → DC
+  - Bảo vệ phân cực ngược
+- **Thông số quan trọng**:
+  - Dòng điện tối đa (If): 1A, 3A, 10A...
+  - Điện áp ngược tối đa (Vr): 50V - 1000V
+  - Điện áp rơi (Vf): 0.7V @ 1A
 
-- **Vùng d«n thu­n**: V > 0.7V, dòng tng m¡nh
-- **Vùng khóa**: V < 0.7V, dòng H 0
-- **Vùng ánh thçng**: V < -Vbr, dòng ng°ãc tng Ùt ngÙt
+#### 2. Diode Zener
+- **Chức năng**: Ổn định điện áp
+- **Nguyên lý**: Hoạt động ở chế độ phân cực ngược, điện áp ổn định tại Vz
+- **Ứng dụng**:
+  - Mạch ổn áp đơn giản
+  - Bảo vệ quá áp
+  - Tạo điện áp tham chiếu
+- **Ví dụ**: Zener 5.1V, 12V, 15V...
+- **Cách mắc**: Ngược với diode thường, cathode nối nguồn dương
 
-### 1.3 Các lo¡i Diode
+#### 3. Diode Schottky
+- **Đặc điểm**:
+  - Điện áp rơi thấp: 0.2V - 0.3V
+  - Tốc độ chuyển mạch rất nhanh
+- **Ứng dụng**:
+  - Nguồn SMPS (switching power supply)
+  - Mạch RF, tần số cao
+  - Bảo vệ ngược cho MOSFET
+- **Nhược điểm**: Dòng rò ngược cao hơn
 
-#### 1.3.1 Diode chÉnh l°u (Rectifier Diode)
+#### 4. LED (Light Emitting Diode)
+- **Điện áp rơi**:
+  - Đỏ: 1.8-2.2V
+  - Vàng/Xanh lá: 2.0-2.4V
+  - Xanh dương/Trắng: 3.0-3.6V
+- **Dòng điện**: Thường 20mA (LED 5mm)
+- **Công thức điện trở hạn dòng**:
+  ```
+  R = (Vnguồn - VLED) / ILED
+  Ví dụ: (5V - 2V) / 0.02A = 150Ω
+  ```
 
-**Ví då**: 1N4001, 1N4007, 1N5408
+#### 5. Photodiode & Solar Cell
+- **Photodiode**: Phát hiện ánh sáng, tạo dòng điện khi có ánh sáng
+- **Solar Cell**: Chuyển đổi ánh sáng thành điện năng
+- **Ứng dụng**: Cảm biến ánh sáng, năng lượng mặt trời
 
-**Thông sÑ quan trÍng**:
-- **IF (Forward Current)**: Dòng thu­n cñc ¡i liên tåc
-  - 1N4007: 1A
-  - 1N5408: 3A
-- **VRRM (Reverse Voltage)**: iÇn áp ng°ãc cñc ¡i
-  - 1N4007: 1000V
-  - 1N5408: 1000V
-- **VF (Forward Voltage)**: iÇn áp r¡i thu­n H 0.7V
+### 1.3 Mạch chỉnh lưu
 
-**èng dång**:
-- ChÉnh l°u AC thành DC
-- B£o vÇ £o cñc
-- Freewheeling diode cho cuÙn c£m
+#### Chỉnh lưu nửa sóng (Half-wave Rectifier)
+- Chỉ dùng nửa chu kỳ dương
+- Hiệu suất thấp (~40%)
+- Dùng cho ứng dụng công suất nhỏ
 
-#### M¡ch chÉnh l°u c¡ b£n
+#### Chỉnh lưu toàn sóng - Cầu diode (Full-wave Bridge Rectifier)
+- Dùng cả hai nửa chu kỳ
+- Hiệu suất cao (~80%)
+- Cần 4 diode
+- Điện áp rơi: 2 × Vf = 1.4V
+- **Ứng dụng**: Nguồn DC phổ biến nhất
 
-**1. ChÉnh l°u nía chu kó (Half-wave rectifier)**
-```
-AC >| DC+ (pulsing)
-       
-      GND
-```
-- ChÉ cho mÙt nía chu kó qua
-- HiÇu su¥t th¥p (~40%)
-- Gãn sóng lÛn
-
-**2. ChÉnh l°u toàn chu kó (Full-wave rectifier)**
-
-**Dùng bi¿n áp iÃm giïa (Center-tapped)**:
-```
-AC >| DC+
-   >|
-   4
-       GND
-```
-
-**Dùng c§u diode (Bridge rectifier)**:
-```
-      D1   D3
-AC ,>|,>|, DC+
-            
-    >|      >|
-    D2      D4
-        GND
-```
-- HiÇu su¥t cao (~81%)
-- Không c§n bi¿n áp iÃm giïa
-- PhÕ bi¿n trong nguÓn AC-DC
-
-**3. LÍc nguÓn vÛi tå iÇn**:
-```
-AC [Bridge] DC+ , Vout
-                        
-                       === C (1000µF - 4700µF)
-                        
-                       GND
-```
-- Tå iÇn l°u trï nng l°ãng, gi£m gãn sóng
-- C càng lÛn, Vout càng Õn Ënh
-
-**Công théc gãn sóng**:
-```
-Vripple H I_load / (f × C)
-f: t§n sÑ (100Hz cho full-wave)
-C: iÇn dung tå lÍc
-I_load: dòng t£i
-```
-
-#### 1.3.2 Diode Zener
-
-**Ví då**: 1N4728 (3.3V), 1N4733 (5.1V), 1N4744 (15V)
-
-**Nguyên lý**:
-- Ho¡t Ùng ß vùng phân cñc ng°ãc
-- Khi V_reverse > V_zener, dòng ng°ãc tng m¡nh nh°ng iÇn áp Õn Ënh
-- Dùng làm Õn áp ¡n gi£n
-
-**Ký hiÇu**:
-```
-    |<  (Cathode có v¡ch, thêm "Š" à chÉ Zener)
-    |
-```
-
-**M¡ch Õn áp Zener c¡ b£n**:
-```
-Vin  Rs , Vout (= Vz)
-              
-            |< Zener
-            4
-              GND
-```
-
-**Thi¿t k¿ Rs (iÇn trß giÛi h¡n)**:
-```
-Rs = (Vin - Vz) / (Iz + Iload)
-Iz: Dòng Zener tÑi thiÃu (th°Ýng 5-10mA)
-Iload: Dòng t£i
-```
-
-**èng dång**:
-- Ôn áp tham chi¿u
-- B£o vÇ quá áp
-- Clipping signal
-
-#### 1.3.3 LED (Light Emitting Diode)
-
-**·c iÃm**:
-- **VF (Forward Voltage)**:
-  - Ï: 1.8-2.2V
-  - Xanh lá/Vàng: 2.0-2.4V
-  - Xanh d°¡ng/Tr¯ng: 3.0-3.6V
-- **IF (Forward Current)**:
-  - LED th°Ýng: 20mA
-  - LED công su¥t: 350mA - 3A
-
-**M¡ch ¡n gi£n nh¥t**:
-```
-Vcc  R >| LED
-              
-             GND
-```
-
-**Tính iÇn trß h¡n dòng**:
-```
-R = (Vcc - VF) / IF
-
-Ví då: LED Ï (VF=2V, IF=20mA) vÛi nguÓn 5V
-R = (5V - 2V) / 0.02A = 150©
-Công su¥t: P = I² × R = (0.02)² × 150 = 0.06W ' ChÍn R 1/4W
-```
-
-**M¯c nÑi ti¿p nhiÁu LED**:
-```
-Vcc  R >|>|>|
-              
-             GND
-
-Vcc e (VF1 + VF2 + VF3) + Vdrop
-R = (Vcc - £VF) / IF
-```
-
-**L°u ý quan trÍng**:
-- LED có phân cñc: chân dài (+), chân ng¯n (-)
-- Không m¯c LED trñc ti¿p vào nguÓn (s½ cháy!)
-- LED m¯c song song c§n iÇn trß riêng cho m×i nhánh
-
-### 1.4 Schottky Diode
-
-**·c iÃm**:
-- VF th¥p: 0.3-0.45V (thay vì 0.7V)
-- Switching nhanh
-- Dòng rò cao h¡n diode th°Ýng
-
-**èng dång**:
-- NguÓn chuyÃn m¡ch (SMPS)
-- M¡ch t§n sÑ cao
-- B£o vÇ £o cñc (ti¿t kiÇm công su¥t)
+#### Mạch lọc tụ (Capacitor Filter)
+- Tụ điện phân mắc song song với tải
+- Giảm độ nhấp nhô (ripple)
+- Công thức: C ≥ Itải / (f × Vripple)
 
 ---
 
 ## 2. Transistor BJT (Bipolar Junction Transistor)
 
-### 2.1 C¥u t¡o và phân lo¡i
+### 2.1 Cấu tạo và nguyên lý
 
-#### C¥u t¡o
-- **Ba lÛp bán d«n**:
+#### Cấu tạo
+- **3 lớp bán dẫn**:
   - NPN: N-P-N
   - PNP: P-N-P
-- **Ba cñc**:
-  - **C (Collector)**: Thu
-  - **B (Base)**: GÑc
-  - **E (Emitter)**: Phát
+- **3 cực**:
+  - Base (B): Điều khiển
+  - Collector (C): Thu
+  - Emitter (E): Phát
 
-#### Ký hiÇu
+#### Nguyên lý hoạt động
+- Dòng Base nhỏ (Ib) điều khiển dòng Collector lớn (Ic)
+- Hệ số khuếch đại: β (beta) = Ic / Ib
+- Thường β = 50 - 200
+
+### 2.2 Các chế độ hoạt động
+
+#### 1. Chế độ cắt (Cut-off)
+- Vbe < 0.7V
+- Ic ≈ 0
+- Transistor như công tắc mở
+
+#### 2. Chế độ bão hòa (Saturation)
+- Vbe ≥ 0.7V, Ib đủ lớn
+- Vce ≈ 0.2V
+- Transistor như công tắc đóng
+- **Ứng dụng**: Công tắc điện tử, LED driver, relay driver
+
+#### 3. Chế độ khuếch đại (Active)
+- Vbe ≈ 0.7V
+- Ic = β × Ib
+- Vce từ 0.7V đến Vcc
+- **Ứng dụng**: Khuếch đại tín hiệu
+
+### 2.3 Mạch BJT cơ bản
+
+#### Mạch công tắc BJT (Switching)
 ```
-NPN:            PNP:
-    C               C
-    |               |
-               
-  B             B
-               
-    "               '
-    E               E
-```
-(Mii tên Emitter: NPN ra ngoài, PNP vào trong)
-
-### 2.2 Nguyên lý ho¡t Ùng
-
-#### iÁu kiÇn d«n
-**NPN**:
-- VBE > 0.7V (Base cao h¡n Emitter)
-- VCE > 0.2V (Collector cao h¡n Emitter)
-
-**PNP**:
-- VEB > 0.7V (Emitter cao h¡n Base)
-- VEC > 0.2V (Emitter cao h¡n Collector)
-
-#### MÑi quan hÇ dòng iÇn
-```
-IC = ² × IB
-IE = IB + IC H IC (vì ² >> 1)
-
-² (hFE): HÇ sÑ khu¿ch ¡i dòng (th°Ýng 100-300)
-```
-
-### 2.3 Các ch¿ Ù ho¡t Ùng
-
-#### 1. Ch¿ Ù khu¿ch ¡i (Active/Linear mode)
-- **iÁu kiÇn**:
-  - Junction B-E: Phân cñc thu­n (VBE H 0.7V)
-  - Junction B-C: Phân cñc ng°ãc (VBC < 0)
-- **·c iÃm**: IC = ² × IB
-- **èng dång**: Khu¿ch ¡i tín hiÇu
-
-#### 2. Ch¿ Ù bão hòa (Saturation mode)
-- **iÁu kiÇn**:
-  - C£ B-E và B-C Áu phân cñc thu­n
-  - IB quá lÛn
-- **·c iÃm**:
-  - VCE H 0.2V (r¥t nhÏ)
-  - IC = (Vcc - VCE) / RC (không phå thuÙc ²)
-  - Transistor nh° mÙt công t¯c óng
-- **èng dång**: Switching, digital logic
-
-#### 3. Ch¿ Ù khóa (Cutoff mode)
-- **iÁu kiÇn**: VBE < 0.7V
-- **·c iÃm**:
-  - IB = 0
-  - IC H 0
-  - Transistor nh° mÙt công t¯c mß
-- **èng dång**: Switching OFF
-
-### 2.4 M¡ch khu¿ch ¡i c¡ b£n
-
-#### 2.4.1 Common Emitter (CE) - Emitter chung
-
-**S¡ Ó**:
-```
-        Vcc
-         
-         RC
-         
-    C 4 Vout
-  $
-      E
- R1     
-       RE
-  4 GND
-    B
- R2
-  
- GND
+Vcc ----[Tải]---- Collector
+                     |
+                  [BJT NPN]
+                     |
+        Base ----[Rb]
+                     |
+                  Emitter --- GND
 ```
 
-**·c iÃm**:
-- **Khu¿ch ¡i iÇn áp**: Av = -RC / RE (ho·c -RC / re n¿u RE bypass)
-- **Khu¿ch ¡i dòng**: Ai H ²
-- **Khu¿ch ¡i công su¥t**: Ap = Av × Ai
-- **£o pha**: Vout ng°ãc pha vÛi Vin
-- **Input impedance**: Trung bình (1k© - 10k©)
-- **Output impedance**: Trung bình (H RC)
+**Tính toán**:
+- Ic = Itải
+- Ib = Ic / β (thêm 20% dự phòng)
+- Rb = (Vcontrol - 0.7V) / Ib
 
-**èng dång**:
-- Khu¿ch ¡i tín hiÇu audio
-- Khu¿ch ¡i tín hiÇu c£m bi¿n
-- M¡ch khu¿ch ¡i RF
+**Ví dụ**: Điều khiển LED 20mA bằng Arduino 5V
+- β = 100
+- Ib = 20mA / 100 × 1.2 = 0.24mA
+- Rb = (5V - 0.7V) / 0.24mA = 18kΩ
 
-**Thi¿t k¿ nhanh** (Voltage divider biasing):
-```
-1. ChÍn IC (dòng Collector c§n thi¿t)
-2. ChÍn VCE H Vcc/2 (Ã tránh méo)
-3. RC = (Vcc - VCE) / IC
-4. RE H RC / 10 (Ã Õn Ënh nhiÇt Ù)
-5. VB = VE + 0.7V = (IC × RE) + 0.7V
-6. ChÍn I(R1+R2) H 10 × IB
-7. R1 và R2 theo công théc phân áp: VB = Vcc × R2/(R1+R2)
-```
+#### Transistor điều khiển Relay
+- Luôn mắc diode bảo vệ ngược song song với cuộn dây relay
+- Diode flyback chống điện áp cảm ứng khi ngắt
 
-#### 2.4.2 Common Collector (CC) - Collector chung (Emitter Follower)
-
-**S¡ Ó**:
-```
-        Vcc
-         
-    C $
-  $
-        E  Vout
- R1        
-          RE
-  4 GND
-    B
- R2
-  
- GND
-```
-
-**·c iÃm**:
-- **Khu¿ch ¡i iÇn áp**: Av H 1 (Vout H Vin)
-- **Khu¿ch ¡i dòng**: Ai = ² + 1
-- **Input impedance**: R¥t cao (² × RE)
-- **Output impedance**: R¥t th¥p (RE / ²)
-- **Cùng pha**: Vout cùng pha vÛi Vin
-
-**èng dång**:
-- Buffer (cách ly nguÓn và t£i)
-- Impedance matching
-- Driver cho t£i công su¥t
-
-#### 2.4.3 Common Base (CB) - Base chung
-
-**S¡ Ó**:
-```
-        Vcc
-         
-         RC
-         
-    C 4 Vout
-  $
-        E
-Vin      
-         RE
-         
-        GND
-  (Base nÑi vÛi GND qua tå)
-```
-
-**·c iÃm**:
-- **Khu¿ch ¡i iÇn áp**: Av = RC / RE (cao)
-- **Khu¿ch ¡i dòng**: Ai H 1
-- **Input impedance**: R¥t th¥p (H re)
-- **Output impedance**: R¥t cao (H RC)
-- **Cùng pha**: Vout cùng pha vÛi Vin
-
-**èng dång**:
-- RF amplifier (t§n sÑ cao)
-- Cascode amplifier
-- Current buffer
-
-### 2.5 Transistor BJT phÕ bi¿n
-
-| Lo¡i | KiÃu | IC max | Vce max | hFE | èng dång |
-|------|------|---------|---------|-----|----------|
-| 2N3904 | NPN | 200mA | 40V | 100-300 | Tín hiÇu nhÏ, switching |
-| 2N3906 | PNP | 200mA | 40V | 100-300 | Tín hiÇu nhÏ, switching |
-| BC547 | NPN | 100mA | 45V | 110-800 | Tín hiÇu nhÏ |
-| BC557 | PNP | 100mA | 45V | 110-800 | Tín hiÇu nhÏ |
-| 2N2222 | NPN | 800mA | 40V | 100-300 | Switching, driver |
-| TIP41 | NPN | 6A | 40V | 15-75 | Công su¥t, audio |
-| TIP42 | PNP | 6A | 40V | 15-75 | Công su¥t, audio |
-
-### 2.6 èng dång Switching
-
-**M¡ch ¡n gi£n**:
-```
-        Vcc
-         
-        Load (relay, motor, LED...)
-         
-    C $
-  $
-        E  GND
-  RB
-  
- Vin (MCU, logic)
-```
-
-**Thi¿t k¿**:
-```
-1. Xác Ënh dòng t£i: Iload
-2. ChÍn transistor: IC(max) > Iload
-3. Tính IB c§n thi¿t: IB = Iload / ²
-4. Tính RB: RB = (Vin - 0.7V) / (IB × 1.5)  [×1.5 Ã £m b£o bão hòa]
-5. KiÃm tra công su¥t: P_transistor = VCE × IC (ß bão hòa VCE H 0.2V)
-```
-
-**L°u ý**:
-- **Diode b£o vÇ**: Luôn m¯c diode ng°ãc song song vÛi t£i c£m (relay, motor) Ã b£o vÇ transistor khÏi iÇn áp ng°ãc khi t¯t
-```
-        Vcc
-         
-    4
-   >|      Load
-           
-   C       
-  $      
-      E 4 GND
-```
+### 2.4 Transistor phổ biến
+- **2N2222 / 2N3904 (NPN)**: 40V, 200mA, đa năng
+- **2N2907 / 2N3906 (PNP)**: 40V, 200mA
+- **2N2222 (TO-92)**: Nhỏ gọn, DIY
+- **TIP120/TIP122 (Darlington NPN)**: 5A, 60V, β rất cao
+- **BC547/548/549**: Tín hiệu nhỏ, rẻ, phổ biến
 
 ---
 
-## 3. MOSFET (Metal-Oxide-Semiconductor Field-Effect Transistor)
+## 3. MOSFET (Metal-Oxide-Semiconductor FET)
 
-### 3.1 C¥u t¡o và phân lo¡i
+### 3.1 So sánh BJT vs MOSFET
 
-#### Ba cñc
-- **G (Gate)**: Cñc cÕng (iÁu khiÃn)
-- **D (Drain)**: Cñc máng
-- **S (Source)**: Cñc nguÓn
-
-#### Phân lo¡i
-
-**1. Theo c¥u trúc**:
-- **N-Channel**: Dòng ch¡y të D ' S khi VGS > Vth
-- **P-Channel**: Dòng ch¡y të S ' D khi VGS < Vth
-
-**2. Theo ch¿ Ù**:
-- **Enhancement (Tng c°Ýng)**:
-  - Th°Ýng OFF, c§n VGS Ã b­t
-  - PhÕ bi¿n nh¥t
-- **Depletion (Suy gi£m)**:
-  - Th°Ýng ON, c§n VGS ng°ãc à t¯t
-  - Ít phÕ bi¿n
-
-#### Ký hiÇu
-```
-N-Channel Enhancement:
-    D
-    
-  
- G
-  
-    
-    S
-
-P-Channel Enhancement:
-    D
-    
-  $
-   G
-  $
-    
-    S
-```
-
-### 3.2 Nguyên lý ho¡t Ùng
-
-#### N-Channel Enhancement MOSFET
-
-**iÁu kiÇn d«n**:
-- **VGS > Vth** (Threshold voltage): Th°Ýng 2-4V
-- **VDS > 0**
-
-**Vùng ho¡t Ùng**:
-1. **Cutoff**: VGS < Vth ' ID = 0 (OFF)
-2. **Linear (Triode)**: VGS > Vth và VDS nhÏ ' RDS th¥p (ON nh° iÇn trß)
-3. **Saturation**: VGS > Vth và VDS lÛn ' ID không Õi (khu¿ch ¡i)
-
-**Công théc dòng Drain** (vùng saturation):
-```
-ID = K × (VGS - Vth)²
-K: Transconductance parameter
-```
-
-### 3.3 ·c iÃm so vÛi BJT
-
-| ·c iÃm | BJT | MOSFET |
+| Đặc điểm | BJT | MOSFET |
 |----------|-----|--------|
-| iÁu khiÃn | Dòng IB | iÇn áp VGS |
-| Input impedance | Trung bình (k©) | R¥t cao (M© - G©) |
-| Switching speed | Trung bình | Nhanh |
-| RDS(on) | VCE(sat) H 0.2V | R¥t th¥p (m©) |
-| Dòng iÁu khiÃn | C§n IB liên tåc | G§n nh° 0 (chÉ khi Õi tr¡ng thái) |
-| èng dång | Khu¿ch ¡i audio, RF | Switching công su¥t, nguÓn SMPS |
+| Điều khiển | Dòng (Ib) | Điện áp (Vgs) |
+| Trở kháng đầu vào | Thấp | Rất cao (MΩ) |
+| Tốc độ chuyển mạch | Trung bình | Rất nhanh |
+| Tổn hao công suất | Cao hơn | Thấp (Rds(on) thấp) |
+| Ứng dụng | Khuếch đại, công tắc | PWM, nguồn SMPS, động cơ |
 
-### 3.4 èng dång Switching
+### 3.2 Các loại MOSFET
 
-#### M¡ch c¡ b£n (N-Channel)
+#### N-Channel MOSFET (phổ biến hơn)
+- **Enhancement mode**: Cần Vgs > Vth để dẫn (dùng nhiều)
+- Gate (+), Source (-), Drain (-)
+- **Ví dụ**: IRF540N, IRF520, IRLZ44N
+
+#### P-Channel MOSFET
+- Gate (-), Source (+), Drain (+)
+- Thường dùng cho high-side switching
+- **Ví dụ**: IRF9540
+
+### 3.3 Thông số quan trọng
+
+- **Vgs(th)**: Ngưỡng điện áp Gate-Source (2V-4V thường)
+- **Vds(max)**: Điện áp Drain-Source tối đa
+- **Id(max)**: Dòng Drain tối đa
+- **Rds(on)**: Điện trở khi dẫn (càng thấp càng tốt)
+- **Vgs(max)**: ±20V (KHÔNG VƯỢT QUÁ!)
+
+### 3.4 Mạch MOSFET cơ bản
+
+#### Logic-level MOSFET vs Standard
+- **Logic-level**: Hoạt động tốt với Vgs = 5V (Arduino, ESP32)
+  - IRLZ44N, IRL540N, IRLB8721
+- **Standard**: Cần Vgs = 10V
+  - IRF540, IRF520
+
+#### Mạch điều khiển tải DC
 ```
-        Vcc
-         
-        Load
-         
-    D $
-  $
-        S  GND
-  RG
-  
- Vin (MCU)
+Vcc ----[Tải]---- Drain
+                    |
+                [MOSFET N-Ch]
+                    |
+  Gate ----[10kΩ]---+
+                    |
+                 Source --- GND
 ```
 
-**Thi¿t k¿**:
-```
-1. ChÍn MOSFET:
-   - VDS(max) > Vcc × 2
-   - ID(max) > Iload × 2
-   - VGS(th) < Vin (logic level MOSFET cho 3.3V/5V)
+- Điện trở 10kΩ pull-down ở Gate
+- Không cần điện trở nối tiếp (trừ khi PWM nhanh)
 
-2. RG (10k© - 100k©):
-   - Pull-down à £m b£o t¯t khi Vin floating
+#### Bảo vệ MOSFET
+- **Diode flyback**: Mắc ngược song song với tải cảm (motor, relay)
+- **Gate resistor**: 100Ω-1kΩ nối tiếp với Gate nếu dùng PWM
+- **Zener diode**: Bảo vệ Vgs không vượt quá ±20V
 
-3. Gate resistor (optional 100-1k©):
-   - H¡n ch¿ dòng Ùt bi¿n khi switching
-```
+### 3.5 MOSFET phổ biến cho Arduino/ESP32
 
-**L°u ý quan trÍng**:
-- **Gate capacitance**: MOSFET có tå ký sinh ß Gate, c§n driver m¡nh cho switching nhanh
-- **Body diode**: MOSFET có diode nÙi të S ' D, hïu ích cho t£i c£m
-- **Logic level MOSFET**: Dùng cho MCU 3.3V/5V (VGS(th) < 2V)
-  - IRF540 (Standard): VGS = 10V
-  - IRL540 (Logic level): VGS = 5V
-
-### 3.5 MOSFET phÕ bi¿n
-
-| Lo¡i | Channel | VDS | ID | RDS(on) | VGS(th) | èng dång |
-|------|---------|-----|-------|---------|---------|----------|
-| IRF540 | N | 100V | 33A | 44m© | 2-4V | Switching công su¥t |
-| IRL540 | N | 100V | 36A | 44m© | 1-2V | Logic level, MCU |
-| IRF9540 | P | 100V | 23A | 117m© | -2-4V | High-side switch |
-| IRLZ44 | N | 55V | 47A | 22m© | 1-2V | Logic level, motor |
-| AO3400 | N | 30V | 5.8A | 28m© | 0.5-1V | SMD, low voltage |
+| Model | Type | Vds | Id | Rds(on) | Logic-level |
+|-------|------|-----|----|---------| ------------|
+| IRLZ44N | N-Ch | 55V | 47A | 22mΩ | ✓ (5V) |
+| IRF540N | N-Ch | 100V | 33A | 44mΩ | ✗ (10V) |
+| IRF520 | N-Ch | 100V | 9.2A | 0.27Ω | ✗ (10V) |
+| IRLB8721 | N-Ch | 30V | 62A | 7mΩ | ✓ (5V) |
 
 ---
 
-## 4. Op-Amp (Operational Amplifier)
+## 4. Operational Amplifier (Op-Amp)
 
-### 4.1 C¡ b£n vÁ Op-Amp
+### 4.1 Đặc tính lý tưởng
+- Độ khuếch đại hở mạch vô cùng lớn (A = ∞)
+- Trở kháng đầu vào vô cùng lớn (Zin = ∞)
+- Trở kháng đầu ra bằng 0 (Zout = 0)
+- Băng thông vô cùng (BW = ∞)
+- **Hai quy tắc vàng**:
+  1. Không có dòng điện vào đầu vào (+) và (-)
+  2. Điện áp V+ = V- (khi có hồi tiếp âm)
 
-#### C¥u trúc
-- **Pin 2 (-IN)**: §u vào £o
-- **Pin 3 (+IN)**: §u vào không £o
-- **Pin 6 (OUT)**: §u ra
-- **Pin 7 (+V)**: NguÓn d°¡ng
-- **Pin 4 (-V)**: NguÓn âm (ho·c GND cho single supply)
+### 4.2 Mạch Op-Amp cơ bản
 
-#### ·c tính lý t°ßng
-- **Khu¿ch ¡i vô cùng**: A ' 
-- **Input impedance vô cùng**: Zin '  (không rút dòng)
-- **Output impedance = 0**: Zout = 0
-- **Bandwidth vô cùng**: BW ' 
-
-#### ·c tính thñc t¿
-- **Open-loop gain**: 100,000 - 1,000,000 (100dB - 120dB)
-- **Input impedance**: 1M© - 10T©
-- **Output impedance**: 50© - 500©
-- **Bandwidth**: Phå thuÙc gain (Gain-Bandwidth Product)
-
-### 4.2 Hai nguyên t¯c vàng
-
-1. **Không có dòng vào §u vào**: I(+) = I(-) H 0
-2. **Khi có feedback âm**: V(+) = V(-) (Virtual short)
-
-### 4.3 M¡ch Op-Amp c¡ b£n
-
-#### 4.3.1 M¡ch khu¿ch ¡i không £o (Non-Inverting Amplifier)
-
+#### 1. Mạch khuếch đại không đảo (Non-inverting Amplifier)
 ```
-      R2
-  /\/\/\
-              
- $OUT         
-              
-        $- IN
-              
-        $+ IN
-              
- GND          Vin
-              
-             GND
+Vout = Vin × (1 + Rf/R1)
+```
+- Vout cùng pha với Vin
+- Trở kháng đầu vào cao
 
-  R1 të (-IN) xuÑng GND
+#### 2. Mạch khuếch đại đảo (Inverting Amplifier)
+```
+Vout = -Vin × (Rf/R1)
+```
+- Vout ngược pha với Vin
+- Khuếch đại phụ thuộc tỉ lệ điện trở
+
+#### 3. Mạch cộng điện áp (Summing Amplifier)
+```
+Vout = -(V1/R1 + V2/R2 + V3/R3) × Rf
 ```
 
-**Công théc**:
+#### 4. Mạch trừ điện áp (Differential Amplifier)
 ```
-Vout = Vin × (1 + R2/R1)
-```
-
-**·c iÃm**:
-- Cùng pha vÛi Vin
-- Input impedance r¥t cao
-- Gain tÑi thiÃu = 1 (khi R2 = 0)
-
-**èng dång**:
-- Buffer (khi R2 = 0, Gain = 1)
-- Khu¿ch ¡i tín hiÇu c£m bi¿n
-- Impedance matching
-
-#### 4.3.2 M¡ch khu¿ch ¡i £o (Inverting Amplifier)
-
-```
-         R2
-  /\/\/\
-                    
- $OUT              
-             $- IN
-                   
-       R1          
- Vin /\/\/\    $+ IN
-                    
- GND                GND
+Vout = (V2 - V1) × (Rf/R1)
 ```
 
-**Công théc**:
-```
-Vout = -Vin × (R2/R1)
-```
+#### 5. Mạch tích phân (Integrator)
+- Tụ điện thay cho Rf
+- Tích phân tín hiệu đầu vào
 
-**·c iÃm**:
-- Ng°ãc pha vÛi Vin
-- Input impedance = R1
-- Có thà gain < 1
+#### 6. Mạch vi phân (Differentiator)
+- Tụ điện ở đầu vào
+- Vi phân tín hiệu
 
-**èng dång**:
-- £o pha tín hiÇu
-- Khu¿ch ¡i vÛi gain chính xác
-- Mixer audio
+#### 7. Mạch so sánh (Comparator)
+- Không dùng hồi tiếp
+- Vout = +Vcc (nếu V+ > V-)
+- Vout = -Vcc (nếu V+ < V-)
 
-#### 4.3.3 M¡ch cÙng (Summing Amplifier)
+### 4.3 Op-Amp phổ biến
 
-```
-           Rf
-  /\/\/\
-                        
- $OUT                  
-                 $- IN
-                       
-V1 /\/\/\$      
-      R1                
-                      $+ IN
-V2 /\/\/\$      
-      R2               GND
-                  
-V3 /\/\/\
-      R3
-```
-
-**Công théc**:
-```
-Vout = -(V1×Rf/R1 + V2×Rf/R2 + V3×Rf/R3)
-```
-
-**N¿u R1 = R2 = R3 = R**:
-```
-Vout = -(Rf/R) × (V1 + V2 + V3)
-```
-
-**èng dång**:
-- Audio mixer
-- DAC (Digital-to-Analog Converter)
-- TÕng nhiÁu tín hiÇu c£m bi¿n
-
-#### 4.3.4 M¡ch trë (Difference Amplifier)
-
-```
-         R2
-  /\/\/\
-                    
- $OUT              
-             $- IN
-                   
-       R1          
-V1 /\/\/\    $+ IN
-                    
- GND           R3    
-            /\/\/\$
-                    
-           V2      $ R4
-                    
-           GND      GND
-```
-
-**Công théc** (khi R1=R3, R2=R4):
-```
-Vout = (R2/R1) × (V2 - V1)
-```
-
-**èng dång**:
-- Khu¿ch ¡i tín hiÇu vi sai
-- Instrumentation amplifier
-- Strain gauge, thermocouple
-
-#### 4.3.5 M¡ch tích phân (Integrator)
-
-```
-         C
-  ||
-                
- $OUT          
-         $- IN
-               
-    R          
-Vin /\/\/\   $+ IN
-                
- GND            GND
-```
-
-**Công théc**:
-```
-Vout = -1/(R×C) × +Vin dt
-```
-
-**èng dång**:
-- T¡o sóng tam giác të sóng vuông
-- BÙ lÍc thông th¥p
-- ADC, waveform generator
-
-#### 4.3.6 M¡ch vi phân (Differentiator)
-
-```
-         R
-  /\/\/\
-                    
- $OUT              
-             $- IN
-                   
-       C           
-Vin ||    $+ IN
-                    
- GND                GND
-```
-
-**Công théc**:
-```
-Vout = -R×C × dVin/dt
-```
-
-**èng dång**:
-- Phát hiÇn c¡nh (edge detection)
-- Tính tÑc Ù thay Õi
-- FM demodulation
-
-#### 4.3.7 M¡ch so sánh (Comparator)
-
-```
-      $+ IN
-           
-     Vin   $OUT
-           
-     GND    
-      $- IN
-           
-     Vref  GND
-      
-     GND
-```
-
-**Nguyên lý**:
-- Không có feedback
-- Vout = +Vsat khi Vin > Vref
-- Vout = -Vsat khi Vin < Vref
-
-**èng dång**:
-- ChuyÃn Õi analog sang digital (1-bit ADC)
-- Phát hiÇn ng°áng
-- Schmitt trigger (vÛi hysteresis)
-
-**L°u ý**: Op-amp thông th°Ýng không tÑi °u cho comparator. Dùng IC chuyên dång (LM339, LM393) cho tÑc Ù cao và output digital.
-
-### 4.4 Op-Amp phÕ bi¿n
-
-| IC | SÑ kênh | Slew Rate | GBW | Supply | èng dång |
-|----|---------|-----------|-----|--------|----------|
-| LM741 | 1 | 0.5 V/µs | 1 MHz | ±15V | HÍc t­p, audio ch­m |
-| LM358 | 2 | 0.6 V/µs | 1 MHz | Single/Dual | General purpose, low cost |
-| TL071 | 1 | 13 V/µs | 3 MHz | ±15V | Audio, JFET input |
-| LM324 | 4 | 0.5 V/µs | 1 MHz | Single | NhiÁu kênh, low cost |
-| OP07 | 1 | 0.3 V/µs | 0.6 MHz | ±15V | Precision, low offset |
-| OPA2134 | 2 | 20 V/µs | 8 MHz | ±15V | Audio Hi-Fi |
-
-**Thu­t ngï**:
-- **Slew Rate**: TÑc Ù thay Õi iÇn áp ra (V/µs)
-- **GBW (Gain-Bandwidth Product)**: Tích gain × bandwidth
-
-### 4.5 L°u ý thi¿t k¿
-
-1. **NguÓn c¥p**:
-   - Dual supply (±5V, ±12V, ±15V): Cho tín hiÇu AC
-   - Single supply (+5V, +12V): C§n t¡o "virtual ground" = Vcc/2
-
-2. **Decoupling capacitor**:
-   - 100nF gÑm g§n chân nguÓn m×i IC
-   - 10µF electrolytic cho m×i rail nguÓn
-
-3. **GiÛi h¡n output**:
-   - Vout không thà v°ãt quá Vcc - 1.5V (rail-to-rail op-amp ngo¡i lÇ)
-
-4. **Stability**:
-   - Luôn có feedback âm
-   - Tå bù t§n sÑ n¿u c§n (10pF-100pF)
-
-5. **Input bias current**:
-   - Gây offset voltage
-   - Dùng iÇn trß cân b±ng ß input (+) và (-)
+| Model | Type | Slew Rate | GBW | Nguồn | Ứng dụng |
+|-------|------|-----------|-----|-------|----------|
+| LM358 | Dual | 0.5V/µs | 1MHz | Single | Đa năng, rẻ |
+| LM324 | Quad | 0.5V/µs | 1MHz | Single | Đa năng |
+| TL072 | Dual | 13V/µs | 3MHz | Dual | Audio |
+| LM741 | Single | 0.5V/µs | 1MHz | Dual | Học tập (cổ điển) |
+| NE5532 | Dual | 9V/µs | 10MHz | Dual | Audio cao cấp |
 
 ---
 
-## Bài t­p thñc hành
+## Tài liệu tham khảo
 
-1. Tính iÇn trß h¡n dòng cho LED xanh d°¡ng (VF=3.2V, IF=20mA) vÛi nguÓn 12V
-2. Thi¿t k¿ m¡ch chÉnh l°u c§u diode cho bi¿n áp 12VAC, t£i 500mA
-3. Thi¿t k¿ m¡ch Zener 5V të nguÓn 12V, t£i 50mA
-4. Thi¿t k¿ m¡ch BJT switching cho relay 12V/100mA, iÁu khiÃn bßi MCU 5V
-5. Thi¿t k¿ m¡ch MOSFET driver cho motor 12V/2A
-6. Tính gain cça m¡ch non-inverting op-amp vÛi R1=1k©, R2=10k©
-7. Thi¿t k¿ m¡ch summing amplifier 3 §u vào, gain = -2
-8. Tính output cça comparator khi Vin=2.5V, Vref=3.0V, Vcc=±12V
+1. **The Art of Electronics** (Horowitz & Hill) - Chapters 2-4
+2. **Practical Electronics for Inventors** - Chapters 4-6
+3. **Electronic Principles** (Malvino) - Chapters 5-8
+4. **Op Amps for Everyone** (Texas Instruments)
 
----
+## Bài tập thực hành
 
-## Tài liÇu tham kh£o
-
-1. **"The Art of Electronics"** - Horowitz & Hill (Chapter 2-4)
-2. **"Electronic Principles"** - Malvino (Chapter 5-9)
-3. **Datasheet**:
-   - 1N4007, 1N4733
-   - 2N3904, BC547
-   - IRF540, IRL540
-   - LM358, LM741
-4. **All About Circuits**: Semiconductor chapters
-5. **EEVblog**: Transistor và Op-amp tutorials
+1. Thiết kế mạch điều khiển LED 12V/100mA bằng Arduino + BJT
+2. Tính Rb cho transistor điều khiển relay 12V/50mA (β=100)
+3. Chọn MOSFET phù hợp để điều khiển động cơ 12V/5A bằng ESP32
+4. Thiết kế mạch khuếch đại đảo với Gain = -10 (Op-Amp)
+5. Tính điện trở cho mạch chỉnh lưu cầu + tụ lọc 1000µF, tải 12V/500mA
