@@ -1,856 +1,285 @@
-# Lư thuy¿t M¡ch T°¡ng tñ (Analog Circuits)
+# Lý thuyết Mạch Tương tự (Analog Circuits)
 
-## 1. BÙ lÍc (Filters)
+## 1. Bộ lọc (Filters)
 
-### 1.1 Khái niÇm c¡ b£n
+### 1.1 Khái niệm cơ bản
 
-#### Ënh ngh)a
-BÙ lÍc là m¡ch iÇn cho phép tín hiÇu ß mÙt d£i t§n sÑ nh¥t Ënh i qua, Óng thƯi suy gi£m tín hiÇu ß các t§n sÑ khác.
+#### Định nghĩa
+Bộ lọc là mạch điện cho phép tín hiệu ở một dải tần số nhất định đi qua, đồng thời suy giảm tín hiệu ở các tần số khác.
 
-#### Các thông sÑ quan trÍng
-- **Cutoff frequency (fc)**: T§n sÑ mà tín hiÇu bË suy gi£m -3dB (70.7% công su¥t)
-- **Bandwidth (BW)**: Ù rÙng d£i t§n cho phép i qua
-- **Roll-off rate**: TÑc Ù suy gi£m (dB/decade ho·c dB/octave)
-- **Q factor**: Ù chÍn lÍc t§n sÑ
+#### Các thông số quan trọng
+- **Cutoff frequency (fc)**: Tần số mà tín hiệu bị suy giảm -3dB (70.7% công suất)
+- **Bandwidth (BW)**: Độ rộng dải tần cho phép đi qua
+- **Roll-off rate**: Tốc độ suy giảm (dB/decade hoặc dB/octave)
+- **Q factor**: Độ chọn lọc tần số
 
-### 1.2 BÙ lÍc RC
+### 1.2 Bộ lọc RC
 
-#### 1.2.1 BÙ lÍc thông th¥p (Low-Pass Filter)
+#### 1.2.1 Bộ lọc thông thấp (Low-Pass Filter)
 
-**S¡ Ó**:
+**Sơ đồ**:
 ```
-Vin /\/\/\ R , Vout
-                      
-                     === C
-                      
-                     GND
-```
-
-**Công théc**:
-```
-fc = 1 / (2À × R × C)
-
-Vout/Vin = 1 / (1 + (f/fc)²)
-
-T¡i fc: Vout = 0.707 × Vin (-3dB)
+Vin ---[R]--- Vout
+              |
+             [C]
+              |
+             GND
 ```
 
-**·c iĂm**:
-- Cho t§n sÑ th¥p i qua
-- T¯t t§n sÑ cao
-- Roll-off: -20dB/decade (-6dB/octave)
-- Ù dËch pha: 0° ' -90° (t¡i fc: -45°)
+**Công thức**:
+- fc = 1 / (2πRC)
+- Roll-off: -20dB/decade (bậc 1)
 
-**èng dång**:
-- Khí nhiÅu t§n sÑ cao
-- Anti-aliasing filter (tr°Ûc ADC)
-- Audio tone control (treble cut)
-- Smoothing PWM signal
+**Ví dụ**: R=10kΩ, C=100nF
+- fc = 1/(2π × 10kΩ × 100nF) = 159Hz
 
-**Ví då thi¿t k¿**:
+**Ứng dụng**:
+- Lọc nhiễu tần số cao
+- Anti-aliasing trong ADC
+- Làm mịn tín hiệu PWM
+
+#### 1.2.2 Bộ lọc thông cao (High-Pass Filter)
+
+**Sơ đồ**:
 ```
-Yêu c§u: fc = 1kHz
-ChÍn C = 100nF (giá trË chu©n)
-R = 1/(2À × fc × C) = 1/(2À × 1000 × 100×10{y) H 1.6k©
-' ChÍn R = 1.5k© (giá trË chu©n g§n nh¥t)
-```
-
-#### 1.2.2 BÙ lÍc thông cao (High-Pass Filter)
-
-**S¡ Ó**:
-```
-Vin || C , Vout
-                  
-                  R
-                  
-                 GND
+Vin ---[C]--- Vout
+              |
+             [R]
+              |
+             GND
 ```
 
-**Công théc**:
-```
-fc = 1 / (2À × R × C)
-
-Vout/Vin = (f/fc) / (1 + (f/fc)²)
-
-T¡i fc: Vout = 0.707 × Vin (-3dB)
-```
-
-**·c iĂm**:
-- Cho t§n sÑ cao i qua
-- T¯t t§n sÑ th¥p (block DC)
+**Công thức**:
+- fc = 1 / (2πRC)
 - Roll-off: -20dB/decade
-- Ù dËch pha: +90° ' 0° (t¡i fc: +45°)
 
-**èng dång**:
-- Blocking DC (AC coupling)
-- Audio tone control (bass cut)
-- Khí nhiÅu t§n sÑ th¥p
-- Differentiation
+**Ứng dụng**:
+- Tách DC, cho AC đi qua
+- Lọc nhiễu tần số thấp
+- Coupling trong audio
 
-**Ví då audio coupling**:
-```
-Audio amp input: fc = 20Hz (Ă block DC, cho audio i qua)
-ChÍn C = 10µF
-R = 1/(2À × 20 × 10×10{v) H 800©
-' ChÍn C = 22µF Ă có margin
-```
+### 1.3 Bộ lọc chủ động (Active Filter)
 
-#### 1.2.3 BÙ lÍc thông d£i (Band-Pass Filter)
+#### Ưu điểm so với bộ lọc thụ động
+- Có thể khuếch đại tín hiệu
+- Roll-off dốc hơn (có thể đạt -40dB, -60dB/decade)
+- Không cần cuộn cảm (L) nặng nề
+- Điều chỉnh dễ dàng
 
-**S¡ Ó** (cascade High-pass + Low-pass):
-```
-        C1        R2
-Vin ||R1/\/\/\, Vout
-                          
-                         === C2
-             GND           
-                          GND
-```
-
-**·c iĂm**:
-- Cho mÙt d£i t§n sÑ i qua
-- T¯t t§n sÑ th¥p và cao
-- Center frequency: f0 = (fc_low × fc_high)
-- Bandwidth: BW = fc_high - fc_low
-- Q factor: Q = f0 / BW
-
-**èng dång**:
-- Radio tuner
-- Audio equalizer
-- Noise filtering
-
-### 1.3 BÙ lÍc LC
-
-#### 1.3.1 LC Low-Pass Filter
-
-**S¡ Ó**:
-```
-Vin ƒƒƒ L , Vout
-                    
-                   === C
-                    
-                   GND
-```
-
-**Công théc**:
-```
-fc = 1 / (2À × (L × C))
-
-Impedance cuÙn c£m: ZL = 2ÀfL
-Impedance tå iÇn: ZC = 1/(2ÀfC)
-```
-
-**·c iĂm**:
-- Roll-off m¡nh h¡n RC: -40dB/decade (b­c 2)
-- Không tiêu hao công su¥t lư t°ßng (không có R)
-- Resonance t¡i fc
-- Dùng cho t§n sÑ cao (RF)
-
-#### 1.3.2 LC High-Pass Filter
-
-**S¡ Ó**:
-```
-Vin || C , Vout
-                  
-                 ƒƒƒ L
-                  
-                 GND
-```
-
-**·c iĂm**: T°¡ng tñ LC Low-Pass nh°ng £o ng°ăc
-
-#### 1.3.3 LC Resonant Circuit (Tank Circuit)
-
-**M¡ch song song**:
-```
-     L 
-             
-   === C      Load
-             
-   GND       GND
-```
-
-**Công théc cÙng h°ßng**:
-```
-f0 = 1 / (2À × (L × C))
-
-T¡i f0:
-- ZL = ZC (ng°ăc d¥u)
-- Impedance tƠng = MAX (lư t°ßng ' )
-- Ḍng iÇn = MIN
-```
-
-**èng dång**:
-- RF tuner
-- LC oscillator
-- Impedance matching
-
-**Q factor**:
-```
-Q = R / (2Àf0L) = 2Àf0CR
-R: iÇn trß tƠn hao
-
-Q cao ' Bandwidth h¹p ' ChÍn lÍc tÑt
-```
-
-### 1.4 BÙ lÍc Active (vÛi Op-Amp)
-
-#### Sallen-Key Low-Pass Filter (b­c 2)
-
-**S¡ Ó**:
-```
-         R1       R2
-Vin /\/\/\/\/\/\, Vout
-                        
-        === C1           
-                        
-        GND         $+ IN
-                        
-               C2 PPP   $OUT
-                        
-                   GND  $- IN (nÑi trñc ti¿p vÛi OUT)
-                         
-                        GND
-```
-
-**·c iĂm**:
-- Roll-off: -40dB/decade (b­c 2)
-- Gain unity ho·c > 1
-- Không c§n cuÙn c£m
-- Ch¥t l°ăng cao, Ơn Ënh
-
-**Công théc** (vÛi R1=R2=R, C1=C2=C):
-```
-fc = 1 / (2À × R × C)
-```
-
-#### ¯u iĂm Active Filter
-- Roll-off m¡nh h¡n passive
-- Có thĂ có gain
-- Không bË t£i £nh h°ßng (buffered)
-- Không c§n cuÙn c£m (nhÏ gÍn, r»)
-
-#### Nh°ăc iĂm
-- C§n nguÓn c¥p
-- D£i t§n h¡n ch¿ (phå thuÙc op-amp)
-- Phéc t¡p h¡n
+#### Bộ lọc Sallen-Key (bậc 2)
+- Dùng Op-Amp
+- Roll-off: -40dB/decade
+- Q factor điều chỉnh được
+- Phổ biến nhất cho audio
 
 ---
 
-## 2. Dao Ùng (Oscillators)
+## 2. Mạch dao động (Oscillators)
 
-### 2.1 Khái niÇm c¡ b£n
+### 2.1 Dao động RC
 
-#### Ënh ngh)a
-M¡ch dao Ùng là m¡ch t¡o ra tín hiÇu AC (sóng sin, vuông, tam giác) mà không c§n tín hiÇu §u vào.
+#### Mạch dao động cầu Wien (Wien Bridge Oscillator)
+- Dùng Op-Amp + RC
+- Tạo sóng sin
+- Tần số: f = 1 / (2πRC)
+- **Ứng dụng**: Tạo tín hiệu âm thanh, test audio
 
-#### iÁu kiÇn Barkhausen
-Ă m¡ch tñ dao Ùng:
-1. **Loop gain** = 1 (|A × ²| = 1)
-2. **Phase shift** = 0° ho·c 360° (feedback d°¡ng)
+### 2.2 Dao động 555 Timer
 
+#### Chế độ Astable (dao động tự do)
 ```
-A: Gain cça m¡ch khu¿ch ¡i
-²: HÇ sÑ feedback
-```
-
-### 2.2 RC Oscillator
-
-#### 2.2.1 Phase-Shift Oscillator
-
-**S¡ Ó** (3 stage RC phase shift):
-```
-           R      R      R
-OUT ,/\/\/\/\/\/\/\/\/\, To Amp Input
-                             
-      === C      === C        === C
-                             
-      GND  GND    GND   GND     GND
+Tần số: f = 1.44 / ((R1 + 2×R2) × C)
+Duty cycle: D = (R1 + R2) / (R1 + 2×R2)
 ```
 
-**Nguyên lư**:
-- 3 m¡ch RC, m×i m¡ch dËch pha 60°
-- TƠng phase shift = 180°
-- Amp £o (CE) thêm 180° ' TƠng 360° (feedback d°¡ng)
+**Ứng dụng**:
+- Tạo xung clock
+- PWM
+- LED nhấp nháy
+- Tạo âm thanh đơn giản
 
-**Công théc t§n sÑ**:
+#### Chế độ Monostable (đơn ổn)
 ```
-f0 = 1 / (2À × 6 × R × C)
-
-Gain amp c§n thi¿t: A e 29
-```
-
-**·c iĂm**:
-- ¡n gi£n, r»
-- T§n sÑ th¥p ¿n trung b́nh (< 100kHz)
-- Ôn Ënh t§n sÑ trung b́nh
-
-#### 2.2.2 Wien Bridge Oscillator
-
-**S¡ Ó**:
-```
-        R1     C1
-    /\/\/\||, To (+) Input
-                    
-        C2           R2
-                    
-       GND          GND
-
-    Feedback âm vÁ (-) Input qua R3, R4
+Thời gian xung: T = 1.1 × R × C
 ```
 
-**Công théc**:
-```
-f0 = 1 / (2À × R × C)  (vÛi R1=R2=R, C1=C2=C)
+**Ứng dụng**:
+- Tạo độ trễ
+- Debouncing nút nhấn
+- Pulse stretching
 
-Gain c§n thi¿t: A = 3
-```
-
-**·c iĂm**:
-- Sóng sin ch¥t l°ăng cao, méo nhÏ
-- T§n sÑ Ơn Ënh
-- C§n Ơn Ënh amplitude (dùng diode, thermistor, ho·c AGC)
-- PhƠ bi¿n trong function generator
-
-**èng dång**:
-- Audio frequency generator (20Hz - 20kHz)
-- Signal generator
-- Test equipment
-
-### 2.3 LC Oscillator (Hartley, Colpitts)
-
-#### 2.3.1 Colpitts Oscillator
-
-**S¡ Ó c¡ b£n**:
-```
-        Vcc
-         
-         RC
-         
-    C $
-  $ NPN transistor
-        E
-           
-          ƒƒƒ L
-           
-  C1$
-           
-  C2GND
-```
-
-**Công théc t§n sÑ**:
-```
-f0 = 1 / (2À × (L × Ceq))
-
-Ceq = (C1 × C2) / (C1 + C2)
-```
-
-**·c iĂm**:
-- T§n sÑ cao (RF: MHz - GHz)
-- Ôn Ënh nhiÇt Ù tÑt
-- Dùng trong radio transmitter/receiver
-
-#### 2.3.2 Hartley Oscillator
-
-**Khác vÛi Colpitts**:
-- Dùng 2 cuÙn c£m L1, L2 (ho·c cuÙn dây có iĂm tap)
-- 1 tå iÇn C
-
-**Công théc**:
-```
-f0 = 1 / (2À × ((L1+L2) × C))
-```
-
-**·c iĂm**: T°¡ng tñ Colpitts, dÅ iÁu chÉnh t§n sÑ
-
-### 2.4 Crystal Oscillator
-
-#### 2.4.1 C¥u t¡o Th¡ch anh (Quartz Crystal)
-
-- **V­t liÇu**: Th¡ch anh (SiO2)
-- **HiÇu éng**: Piezoelectric effect
-  - iÇn áp ' Bi¿n d¡ng c¡ hÍc ' Dao Ùng c¡ hÍc
-  - Dao Ùng c¡ hÍc ' iÇn áp
-
-#### 2.4.2 Mô h́nh iÇn t°¡ng °¡ng
-
-```
-    Cs (series capacitance)
-     
-     ƒƒƒ Ls /\/\/\ Rs
-                   
-    44 Cp (parallel capacitance)
-    (Tå kư sinh)
-```
-
-**Hai t§n sÑ cÙng h°ßng**:
-1. **Series resonance**: fs = 1/(2À(LsCs))
-2. **Parallel resonance**: fp > fs
-
-#### 2.4.3 Pierce Crystal Oscillator
-
-**S¡ Ó** (phƠ bi¿n trong MCU):
-```
-        
-          MCU   
-                
-         XI  XO 
-        ,,
-             
-       ¬  ¬ Crystal
-      C1          C2
-                 
-      GND        GND
-```
-
-**Giá trË iĂn h́nh**:
-- Crystal: 8MHz, 12MHz, 16MHz, 32.768kHz (RTC)
-- C1 = C2 = 22pF (cho crystal MHz)
-- C1 = C2 = 12.5pF (cho 32.768kHz)
-
-**·c iĂm**:
-- Ù chính xác cñc cao (±10ppm - ±50ppm)
-- Ôn Ënh nhiÇt Ù tÑt
-- Không iÁu chÉnh °ăc (fixed frequency)
-- T§n sÑ chu©n: 32.768kHz, 4MHz, 8MHz, 12MHz, 16MHz, 20MHz...
-
-**èng dång**:
-- Clock cho MCU, CPU
-- Real-time clock (RTC)
-- Frequency reference
-
-### 2.5 M¡ch 555 Timer Oscillator
-
-#### Astable mode (dao Ùng tñ do)
-
-**S¡ Ó**:
-```
-        Vcc
-         
-         R1
-         
-    4
-             
-        8  7  R2 
-     555               
-        4  6 $
-                       
-        2  1      === C
-                      
-      GND    GND
-          3 OUT
-```
-
-**Công théc**:
-```
-f = 1.44 / ((R1 + 2×R2) × C)
-
-Duty cycle = (R1 + R2) / (R1 + 2×R2) × 100%
-```
-
-**·c iĂm**:
-- R¥t phƠ bi¿n, r»
-- Sóng vuông
-- T§n sÑ: 0.1Hz - 500kHz
-- Duty cycle iÁu chÉnh °ăc
-
-**èng dång**:
-- LED flasher
-- PWM generator
-- Clock generator
-- Tone generator
+### 2.3 Dao động thạch anh (Crystal Oscillator)
+- Độ chính xác cao (±10ppm)
+- Tần số phổ biến: 16MHz, 20MHz, 32.768kHz (đồng hồ)
+- **Ứng dụng**: Clock cho MCU, RTC
 
 ---
 
-## 3. NguÓn (Power Supplies)
+## 3. Nguồn điện (Power Supply)
 
-### 3.1 Linear Regulator (Ôn áp tuy¿n tính)
+### 3.1 Nguồn tuyến tính (Linear Regulator)
 
-#### 3.1.1 Nguyên lư ho¡t Ùng
+#### IC ổn áp 78xx (dương) và 79xx (âm)
+- **78xx**: +5V (7805), +9V (7809), +12V (7812)
+- **79xx**: -5V (7905), -12V (7912)
 
-**KhÑi chéc nng**:
+**Đặc điểm**:
+- Cần điện áp đầu vào cao hơn 2-3V
+- Hiệu suất thấp: η = Vout/Vin × 100%
+- Tỏa nhiệt nhiều
+- Ổn định, ít nhiễu
+
+**Tản nhiệt**:
+- Công suất tỏa nhiệt: P = (Vin - Vout) × Iout
+- Cần tản nhiệt nếu P > 1W
+
+#### IC ổn áp LDO (Low Dropout)
+- **AMS1117**: 1A, dropout 1V, rẻ
+- **LM1117**: Tương tự AMS1117
+- **LM2596** (Buck converter): Hiệu suất cao 92%
+
+**Mạch nguồn 5V đơn giản**:
 ```
-Vin , Pass Element (transistor)  Vout
-              '                        
-         Control Circuit              
-              '                        
-     ReferenceError Amp 
-                           '          
-                       Feedback 4
-```
-
-- **Pass element**: Transistor ho¡t Ùng nh° iÇn trß bi¿n Ơi
-- **Reference**: iÇn áp chu©n (Zener ho·c bandgap)
-- **Error amplifier**: So sánh Vout vÛi Reference
-- **Feedback**: iÁu chÉnh pass element Ă Vout Ơn Ënh
-
-#### 3.1.2 IC 78xx (Positive regulator)
-
-**HÍ 78xx**: 7805, 7809, 7812, 7815, 7824...
-- 7805: +5V
-- 7812: +12V
-- xx: iÇn áp ra
-
-**Pinout** (TO-220):
-```
-    [Front view]
-     
-      1  Input
-      2  GND
-      3  Output
-     
+Vin(7-12V) ---[7805]--- 5V
+      |         |        |
+    [C1]      [C2]     [C3]
+    100nF     100nF    10µF
+      |         |        |
+     GND       GND      GND
 ```
 
-**M¡ch c¡ b£n**:
-```
-Vin , 7805 , Vout (5V)
-                   
-      === C1       === C2
-            GND     
-      GND           GND
+### 3.2 Nguồn xung SMPS (Switch Mode Power Supply)
 
-C1: 0.33µF (gÑm) - input decoupling
-C2: 0.1µF (gÑm) + 10µF (electrolytic) - output smoothing
-```
+#### Ưu điểm
+- Hiệu suất cao 85-95%
+- Nhỏ gọn, nhẹ
+- Dải điện áp đầu vào rộng
 
-**Thông sÑ**:
-- **Vin**: Vout + 2V (min) ¿n 35V (max)
-  - 7805: Vin = 7V-35V
-- **Iout**: 1A (max), 1.5A (peak)
-- **Dropout voltage**: ~2V
-- **Line regulation**: 3-100mV
-- **Load regulation**: 15-100mV
+#### Nhược điểm
+- Nhiễu cao
+- Phức tạp hơn
+- Cần cuộn cảm, tụ lọc lớn
 
-**Tính toán t£n nhiÇt**:
-```
-P_dissipation = (Vin - Vout) × Iout
+#### Các loại SMPS
+- **Buck (Step-down)**: Giảm áp (ví dụ: LM2596, MP1584)
+- **Boost (Step-up)**: Tăng áp (ví dụ: MT3608)
+- **Buck-Boost**: Tăng/giảm áp
+- **Flyback**: Cách ly điện
 
-Ví då: 7805 vÛi Vin=12V, Iout=1A
-P = (12 - 5) × 1 = 7W
+### 3.3 Module nguồn phổ biến cho DIY
 
-NhiÇt Ù junction: Tj = Ta + P × ¸ja
-Ta: Ambient temperature
-¸ja: Thermal resistance (junction to ambient)
-
-N¿u P > 1W ' C§n t£n nhiÇt!
-```
-
-#### 3.1.3 IC 79xx (Negative regulator)
-
-**HÍ 79xx**: 7905, 7912, 7915...
-- T°¡ng tñ 78xx nh°ng ra iÇn áp âm
-
-**M¡ch dual supply (±12V)**:
-```
-AC [Transformer], 15VAC
-                    
-                   GND (CT)
-                    
-                     15VAC
-
-     [Bridge1] +15VDC  7812  +12V
-     
-    GND
-     
-     [Bridge2] -15VDC  7912  -12V
-```
-
-#### 3.1.4 LM317 (Adjustable regulator)
-
-**Pinout**:
-```
-    [Front view]
-     
-      1  ADJ (Adjust)
-      2  OUT
-      3  IN
-     
-```
-
-**M¡ch c¡ b£n**:
-```
-Vin , LM317 OUT , Vout
-                       
-      === C1           R1
-            ADJ         
-      GND                Vout
-               R2       === C2
-                        
-              GND       GND
-
-C1: 0.1µF, C2: 1µF + 10µF
-```
-
-**Công théc**:
-```
-Vout = 1.25V × (1 + R2/R1) + Iadj × R2
-
-Iadj H 50µA (bÏ qua)
-Vout H 1.25V × (1 + R2/R1)
-
-Thi¿t k¿: ChÍn R1 = 240© (Ă I > 5mA)
-R2 = R1 × (Vout/1.25V - 1)
-```
-
-**Ví då**: Vout = 12V
-```
-R1 = 240©
-R2 = 240 × (12/1.25 - 1) = 2.06k© ' ChÍn 2k© + pot 500©
-```
-
-**Thông sÑ LM317**:
-- Vout: 1.25V - 37V (adjustable)
-- Iout: 1.5A (max)
-- Dropout: ~2.5V
-- Line regulation: 0.01%
-- Load regulation: 0.3%
-
-#### 3.1.5 LDO (Low Dropout Regulator)
-
-**Ví då**: LM1117, AMS1117, LD1117
-
-**·c iĂm**:
-- Dropout voltage r¥t th¥p: 0.5V - 1V (thay v́ 2-2.5V)
-- HiÇu su¥t cao h¡n khi Vin g§n Vout
-- Dùng MOSFET thay v́ BJT
-
-**èng dång**:
-- Battery-powered devices
-- 5V ' 3.3V cho MCU
-- NguÓn nhiÁu rail (5V, 3.3V, 2.5V, 1.8V)
-
-### 3.2 SMPS c¡ b£n (Switching Mode Power Supply)
-
-#### 3.2.1 Nguyên lư
-
-**So sánh Linear vs Switching**:
-| ·c iĂm | Linear | Switching |
-|----------|--------|-----------|
-| HiÇu su¥t | 30-60% | 70-95% |
-| NhiÇt tÏa | LÛn | NhÏ |
-| NhiÅu | Th¥p | Cao |
-| Kích th°Ûc | LÛn (t£n nhiÇt) | NhÏ gÍn |
-| Giá | R» | ¯t h¡n |
-
-**Nguyên lư chung**:
-1. Chop (c¯t xén) Vin thành xung (PWM)
-2. LÍc (L, C) Ă t¡o DC Ơn Ënh
-3. Feedback iÁu chÉnh duty cycle
-
-#### 3.2.2 Buck Converter (Step-down)
-
-**S¡ Ó khÑi**:
-```
-         Switch , L , Vout
-Vin $                       
-                     >|         
-                 === C
-                               
-                              GND
-```
-
-**Nguyên lư**:
-- Switch ON ' Ḍng qua L tng, nng l°ăng l°u trong L
-- Switch OFF ' L phóng iÇn qua diode, duy tŕ ḍng
-- C lÍc ' Vout Ơn Ënh
-
-**Công théc**:
-```
-Vout = Vin × D
-D: Duty cycle (0-1)
-
-Ví då: 12V ' 5V
-D = 5/12 H 0.42 (42%)
-```
-
-**IC phƠ bi¿n**: LM2596, XL4015, MP1584
-
-#### 3.2.3 Boost Converter (Step-up)
-
-**S¡ Ó**:
-```
-Vin ƒƒƒ L ,>|, Vout
-                         
-             Switch      === C
-                         
-                GND      GND
-```
-
-**Công théc**:
-```
-Vout = Vin / (1 - D)
-
-Ví då: 3.7V (Li-ion) ' 5V
-D = 1 - (3.7/5) = 0.26 (26%)
-```
-
-**IC phƠ bi¿n**: MT3608, XL6009
-
-#### 3.2.4 Các thông sÑ thi¿t k¿ SMPS
-
-**ChÍn cuÙn c£m**:
-- Inductance: 22µH - 470µH (phå thuÙc IC)
-- Current rating > Iout × 1.3
-- DCR (DC Resistance) th¥p
-
-**ChÍn tå lÍc**:
-- Output: Low ESR (electrolytic ho·c ceramic)
-- Capacitance: 47µF - 470µF
-- Voltage rating > Vout × 1.5
-
-**ChÍn diode** (cho non-synchronous):
-- Schottky diode (VF th¥p, nhanh)
-- IF > Iout × 1.5
-- VR > Vin × 1.5
+| Module | Type | Input | Output | Current | Giá |
+|--------|------|-------|--------|---------|-----|
+| LM2596 | Buck | 4-35V | 1.25-30V | 3A | Rẻ |
+| MP1584 | Buck | 4.5-28V | 0.8-20V | 3A | Rẻ |
+| MT3608 | Boost | 2-24V | 5-28V | 2A | Rẻ |
+| XL4015 | Buck | 8-36V | 1.25-35V | 5A | Trung bình |
 
 ---
 
-## 4. Khu¿ch ¡i công su¥t (Power Amplifiers)
+## 4. Khuếch đại âm thanh (Audio Amplifier)
 
-### 4.1 Phân lo¡i
+### 4.1 Khuếch đại công suất class
 
 #### Class A
-- **Nguyên lư**: Transistor d«n 100% chu kó
-- **HiÇu su¥t**: 25-50%
-- **Méo**: R¥t th¥p (<1%)
-- **èng dång**: Audio Hi-Fi, RF amplifier
+- Hiệu suất: 25-30%
+- Chất lượng tốt nhất
+- Tỏa nhiệt nhiều
+- Ít dùng cho công suất lớn
 
-#### Class B (Push-Pull)
-- **Nguyên lư**: 2 transistor, m×i cái d«n 50% chu kó
-- **HiÇu su¥t**: 50-70%
-- **Méo**: Crossover distortion (khi chuyĂn giao)
-- **èng dång**: Ít dùng trñc ti¿p
+#### Class B
+- Hiệu suất: 50-60%
+- Méo crossover
+- Ít dùng cho audio
 
-#### Class AB
-- **Nguyên lư**: K¿t hăp A và B, m×i transistor d«n 50-100% chu kó
-- **HiÇu su¥t**: 50-70%
-- **Méo**: Th¥p (< 0.1%)
-- **èng dång**: Audio amplifier phƠ bi¿n nh¥t
+#### Class AB (phổ biến nhất)
+- Hiệu suất: 60-70%
+- Kết hợp ưu điểm Class A và B
+- **IC phổ biến**: TDA2030, TDA2050, LM386
 
-#### Class D
-- **Nguyên lư**: Switching (PWM), lÍc t§n sÑ cao
-- **HiÇu su¥t**: 80-95%
-- **Méo**: Trung b́nh
-- **èng dång**: Subwoofer, PA system, mobile audio
+#### Class D (SMPS audio)
+- Hiệu suất: 85-95%
+- Dùng PWM
+- Nhỏ gọn, ít nóng
+- **IC phổ biến**: PAM8403, TPA3116
 
-### 4.2 M¡ch Class AB ¡n gi£n
+### 4.2 IC khuếch đại audio phổ biến
 
-**S¡ Ó Complementary Symmetry**:
-```
-        Vcc
-         
-          NPN (TIP41)
-               
-    4$ Vout ƒƒƒ Speaker
-                              (8©, 4©)
-   Vin          
-  (të driver)   
-               
-    ,$
-               
-          PNP (TIP42)
-         
-        -Vcc (ho·c GND cho single supply)
-```
+#### LM386 (0.5W - nhỏ)
+- Nguồn: 4-12V
+- Công suất: 0.5W @ 8Ω
+- Gain: 20 - 200 (điều chỉnh được)
+- **Ứng dụng**: Loa nhỏ, DIY radio
 
-**Bias network** (Ă gi£m crossover distortion):
-```
-       VCC
-        
-        R
-        
-    NPN Base , Diode 1N4148 
-                                    
-                 Diode 1N4148 $
-                                    
-    PNP Base 
-```
+#### TDA2030 (18W - trung bình)
+- Nguồn: ±6V đến ±18V
+- Công suất: 18W @ 4Ω
+- **Ứng dụng**: Amply mini, active speaker
 
-Diode t¡o bias ~1.4V Ă transistor luôn d«n mÙt chút
+#### PAM8403 (3W × 2 - Class D)
+- Nguồn: 2.5-5V
+- Công suất: 3W × 2 @ 4Ω
+- Hiệu suất: 90%
+- **Ứng dụng**: Bluetooth speaker, portable audio
 
-**Tính toán công su¥t**:
-```
-P_out = Vrms² / RL
-Vrms = Vpeak / 2
+### 4.3 Thiết kế mạch âm thanh
 
-Ví då: Vcc = ±12V, Speaker 8©
-Vpeak H 12V (thñc t¿ ~10V do Vce)
-Vrms = 10/1.414 H 7V
-P_out = 7² / 8 H 6W
-```
+#### Điều chỉnh âm Bass-Treble (Tone Control)
+- Dùng Op-Amp + mạng RC
+- Điều chỉnh tần số thấp (Bass) và cao (Treble)
 
-**T£n nhiÇt**:
-```
-P_dissipated = P_supply - P_out
-P_supply H Vcc × Iavg
-
-VÛi hiÇu su¥t ~60%, công su¥t tiêu hao:
-P_loss = P_out × 0.67
-
-' C§n t£n nhiÇt cho TIP41, TIP42!
-```
-
-### 4.3 IC Audio Amplifier phƠ bi¿n
-
-| IC | NguÓn | Công su¥t | SÑ kênh | èng dång |
-|----|-------|-----------|---------|----------|
-| LM386 | 4-12V | 0.5W | 1 | Portable audio, guitar |
-| TDA2030 | ±6-18V | 18W | 1 | Stereo amplifier |
-| TDA7297 | 6-18V | 15W×2 | 2 | Budget stereo |
-| LM1875 | ±25V | 30W | 1 | Hi-Fi audio |
-| TDA7293 | ±40V | 100W | 1 | High power Hi-Fi |
-
-**Ví då m¡ch LM386**:
-```
-          
-     C1   1   8 +Vcc
-Vin ||$      
-         2   5, 10µF , Speaker
-    Gain                      
-         3   7             GND
-                === 220µF
-    GND $4   6  
-           GND
-```
-
-- Gain m·c Ënh: 20 (26dB)
-- Gain tÑi a: 200 (46dB) khi nÑi pin 1-8 qua tå 10µF
+#### Điều khiển âm lượng
+- Biến trở loại log (Audio taper) 10kΩ, 50kΩ, 100kΩ
+- Logarithmic để phù hợp cảm nhận tai người
 
 ---
 
-## Bài t­p thñc hành
+## 5. ADC và DAC
 
-1. Thi¿t k¿ RC low-pass filter fc=5kHz vÛi C=10nF
-2. Thi¿t k¿ m¡ch 555 astable t¡o sóng 1kHz, duty cycle 50%
-3. Tính t£n nhiÇt cho 7812 vÛi Vin=18V, Iout=800mA
-4. Thi¿t k¿ LM317 cho Vout=9V
-5. Tính công su¥t ra cça amp Class AB vÛi Vcc=±15V, t£i 4©
-6. Thi¿t k¿ m¡ch Wien Bridge oscillator 1kHz
-7. Tính t§n sÑ dao Ùng cça LC tank vÛi L=100µH, C=100pF
-8. ChÍn tå lÍc nguÓn cho Buck converter 12V'5V/2A, ripple < 50mV
+### 5.1 ADC (Analog to Digital Converter)
+
+#### Các thông số quan trọng
+- **Resolution**: 8-bit, 10-bit, 12-bit, 16-bit
+- **Sampling rate**: Tốc độ lấy mẫu (Hz, kHz, MHz)
+- **Reference voltage**: Điện áp tham chiếu (Vref)
+
+#### Công thức chuyển đổi
+```
+Digital value = (Vin / Vref) × (2^n - 1)
+Vin = (Digital value × Vref) / (2^n - 1)
+```
+
+**Ví dụ**: ADC 10-bit, Vref=5V, đọc được 512
+- Vin = (512 × 5V) / 1023 = 2.5V
+
+#### ADC trong Arduino
+- Resolution: 10-bit (0-1023)
+- Vref: 5V (Arduino UNO) hoặc 3.3V (ESP32)
+- Hàm: `analogRead(pin)`
+
+### 5.2 DAC (Digital to Analog Converter)
+
+#### PWM như DAC đơn giản
+- Dùng bộ lọc RC để làm mịn
+- Arduino: `analogWrite(pin, value)` (0-255)
+
+#### Module DAC chuyên dụng
+- **MCP4725**: 12-bit, I2C, rẻ
+- **PCM5102**: 24-bit, I2S, audio chất lượng cao
 
 ---
 
-## Tài liÇu tham kh£o
+## Tài liệu tham khảo
 
-1. **"The Art of Electronics"** - Horowitz & Hill (Chapters 6-9)
-2. **"Practical Electronics for Inventors"** - Scherz (Chapters 6-8)
-3. **Datasheet**:
-   - 555 Timer
-   - 7805, LM317
-   - TDA2030, LM386
-   - LM2596
-4. **App Notes**:
-   - Texas Instruments: "Understanding Buck Converters"
-   - ON Semiconductor: "Linear Regulator Basics"
-5. **EEVblog**: Power supply design tutorials
+1. **The Art of Electronics** (Horowitz & Hill) - Chapters 5-7
+2. **Practical Electronics for Inventors** - Chapters 7-9
+3. **Op Amps for Everyone** - Filter Design
+4. **Audio Power Amplifier Design Handbook** (Douglas Self)
 
----
+## Bài tập thực hành
 
-## L°u ư an toàn
-
-1. **NguÓn linear**: Luôn kiĂm tra nhiÇt Ù IC khi ch¡y t£i
-2. **SMPS**: C©n th­n vÛi nhiÅu, c§n scope Ă kiĂm tra
-3. **Audio amplifier**: Không ch¡m vào t£n nhiÇt khi ho¡t Ùng (nóng!)
-4. **Crystal**: Không hàn lâu (dÅ hÏng v́ nhiÇt)
-5. **Tå iÇn phân**: Chú ư phân cñc, có thĂ nƠ n¿u sai cñc
+1. Thiết kế Low-Pass Filter RC với fc = 1kHz
+2. Tính linh kiện cho mạch dao động 555 tạo LED nhấp nháy 1Hz
+3. Thiết kế nguồn 5V/1A từ 12V dùng 7805 (tính tản nhiệt)
+4. Khuếch đại tín hiệu micro 10mV lên 1V bằng Op-Amp
+5. Tính giá trị ADC 10-bit khi đọc cảm biến nhiệt độ 2.7V (Vref=5V)

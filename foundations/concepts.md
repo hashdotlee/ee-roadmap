@@ -1,36 +1,36 @@
-# Lý thuy¿t NÁn t£ng (Foundations)
+# Lý thuyết Nền tảng (Foundations)
 
-## 1. iÇn hÍc c¡ b£n
+## 1. Điện học cơ bản
 
-### 1.1 iÇn áp (Voltage - V)
-- **Ënh ngh)a**: iÇn áp là hiÇu iÇn th¿ giïa hai iÃm, ¡i l°ãng o sñ chênh lÇch nng l°ãng cça electron giïa hai iÃm.
-- **¡n vË**: Volt (V)
-- **Ký hiÇu**: V ho·c U
-- **Ví då**:
+### 1.1 Điện áp (Voltage - V)
+- **Định nghĩa**: Điện áp là hiệu điện thế giữa hai điểm, đại lượng đo sự chênh lệch năng lượng của electron giữa hai điểm.
+- **Đơn vị**: Volt (V)
+- **Ký hiệu**: V hoặc U
+- **Ví dụ**:
   - Pin AA: 1.5V
-  - Ô c¯m iÇn dân dång VN: 220V
+  - Ổ cắm điện dân dụng VN: 220V
   - Pin xe máy: 12V
 
-### 1.2 Dòng iÇn (Current - I)
-- **Ënh ngh)a**: Dòng iÇn là dòng chuyÃn Ùng có h°Ûng cça các electron qua mÙt ti¿t diÇn trong mÙt ¡n vË thÝi gian.
-- **¡n vË**: Ampe (A)
-- **Ký hiÇu**: I
-- **Hai lo¡i dòng iÇn**:
-  - **DC (Direct Current)**: Dòng mÙt chiÁu, electron ch¡y theo mÙt h°Ûng cÑ Ënh (VD: pin, adapter)
-  - **AC (Alternating Current)**: Dòng xoay chiÁu, electron Õi chiÁu theo chu kó (VD: iÇn l°Ûi 220V/50Hz)
+### 1.2 Dòng điện (Current - I)
+- **Định nghĩa**: Dòng điện là dòng chuyển động có hướng của các electron qua một tiết diện trong một đơn vị thời gian.
+- **Đơn vị**: Ampe (A)
+- **Ký hiệu**: I
+- **Hai loại dòng điện**:
+  - **DC (Direct Current)**: Dòng một chiều, electron chạy theo một hướng cố định (VD: pin, adapter)
+  - **AC (Alternating Current)**: Dòng xoay chiều, electron đổi chiều theo chu kỳ (VD: điện lưới 220V/50Hz)
 
-### 1.3 iÇn trß (Resistance - R)
-- **Ënh ngh)a**: iÇn trß là ¡i l°ãng ·c tr°ng cho sñ c£n trß dòng iÇn cça mÙt v­t d«n.
-- **¡n vË**: Ohm (©)
-- **Ký hiÇu**: R
-- **Các y¿u tÑ £nh h°ßng**:
-  - V­t liÇu (iÇn trß su¥t Á)
-  - ChiÁu dài dây d«n (l)
-  - Ti¿t diÇn dây (S)
-  - Công théc: R = Á × l / S
+### 1.3 Điện trở (Resistance - R)
+- **Định nghĩa**: Điện trở là đại lượng đặc trưng cho sự cản trở dòng điện của một vật dẫn.
+- **Đơn vị**: Ohm (Ω)
+- **Ký hiệu**: R
+- **Các yếu tố ảnh hưởng**:
+  - Vật liệu (điện trở suất ρ)
+  - Chiều dài dây dẫn (l)
+  - Tiết diện dây (S)
+  - Công thức: R = ρ × l / S
 
-### 1.4 Ënh lu­t Ohm
-**Ënh lu­t c¡ b£n nh¥t trong iÇn tí**
+### 1.4 Định luật Ohm
+**Định luật cơ bản nhất trong điện tử**
 
 ```
 V = I × R
@@ -38,271 +38,271 @@ I = V / R
 R = V / I
 ```
 
-**Ví då thñc t¿**:
-- LED c§n 20mA, nguÓn 5V, iÇn trß h¡n dòng c§n bao nhiêu?
-- R = V / I = 5V / 0.02A = 250© ' ChÍn iÇn trß 220© (giá trË chu©n g§n nh¥t)
+**Ví dụ thực tế**:
+- LED cần 20mA, nguồn 5V, điện trở hạn dòng cần bao nhiêu?
+- R = V / I = 5V / 0.02A = 250Ω → Chọn điện trở 220Ω (giá trị chuẩn gần nhất)
 
-### 1.5 Ënh lu­t Kirchhoff
+### 1.5 Định luật Kirchhoff
 
-#### Ënh lu­t Kirchhoff vÁ dòng iÇn (KCL - Kirchhoff's Current Law)
-- **Phát biÃu**: TÕng các dòng iÇn vào mÙt nút b±ng tÕng các dòng iÇn ra khÏi nút ó.
-- **Công théc**: £I_vào = £I_ra
-- **èng dång**: Phân tích m¡ch phéc t¡p, tìm dòng iÇn t¡i các nhánh
+#### Định luật Kirchhoff về dòng điện (KCL - Kirchhoff's Current Law)
+- **Phát biểu**: Tổng các dòng điện vào một nút bằng tổng các dòng điện ra khỏi nút đó.
+- **Công thức**: ΣI_vào = ΣI_ra
+- **Ứng dụng**: Phân tích mạch phức tạp, tìm dòng điện tại các nhánh
 
-#### Ënh lu­t Kirchhoff vÁ iÇn áp (KVL - Kirchhoff's Voltage Law)
-- **Phát biÃu**: TÕng ¡i sÑ các iÇn áp trong mÙt m¡ch kín b±ng 0.
-- **Công théc**: £V = 0
-- **èng dång**: Tính iÇn áp r¡i trên các thành ph§n trong m¡ch nÑi ti¿p
+#### Định luật Kirchhoff về điện áp (KVL - Kirchhoff's Voltage Law)
+- **Phát biểu**: Tổng đại số các điện áp trong một mạch kín bằng 0.
+- **Công thức**: ΣV = 0
+- **Ứng dụng**: Tính điện áp rơi trên các thành phần trong mạch nối tiếp
 
-### 1.6 Công su¥t iÇn (Power - P)
-- **Ënh ngh)a**: Nng l°ãng tiêu thå ho·c t¡o ra trong mÙt ¡n vË thÝi gian
-- **¡n vË**: Watt (W)
-- **Công théc**:
+### 1.6 Công suất điện (Power - P)
+- **Định nghĩa**: Năng lượng tiêu thụ hoặc tạo ra trong một đơn vị thời gian
+- **Đơn vị**: Watt (W)
+- **Công thức**:
 ```
 P = V × I
 P = I² × R
 P = V² / R
 ```
 
-**L°u ý quan trÍng**: Khi chÍn iÇn trß, c§n tính công su¥t tiêu thå Ã chÍn iÇn trß có công su¥t phù hãp (1/8W, 1/4W, 1/2W, 1W, 2W...)
+**Lưu ý quan trọng**: Khi chọn điện trở, cần tính công suất tiêu thụ để chọn điện trở có công suất phù hợp (1/8W, 1/4W, 1/2W, 1W, 2W...)
 
-## 2. Linh kiÇn thå Ùng (Passive Components)
+## 2. Linh kiện thụ động (Passive Components)
 
-### 2.1 iÇn trß (Resistor)
+### 2.1 Điện trở (Resistor)
 
-#### Chéc nng
-- H¡n ch¿ dòng iÇn
+#### Chức năng
+- Hạn chế dòng điện
 - Phân áp
-- T¡o nhiÇt (iÇn trß công su¥t cao)
+- Tạo nhiệt (điện trở công suất cao)
 
-#### Cách Íc mã màu iÇn trß
-**iÇn trß 4 v¡ch màu**:
-- V¡ch 1: Chï sÑ thé nh¥t
-- V¡ch 2: Chï sÑ thé thé hai
-- V¡ch 3: SÑ nhân (10^n)
-- V¡ch 4: Dung sai (±%)
+#### Cách đọc mã màu điện trở
+**Điện trở 4 vạch màu**:
+- Vạch 1: Chữ số thứ nhất
+- Vạch 2: Chữ số thứ hai
+- Vạch 3: Số nhân (10^n)
+- Vạch 4: Dung sai (±%)
 
-**B£ng mã màu**:
-- en: 0
+**Bảng mã màu**:
+- Đen: 0
 - Nâu: 1
-- Ï: 2
+- Đỏ: 2
 - Cam: 3
 - Vàng: 4
 - Xanh lá: 5
-- Xanh d°¡ng: 6
+- Xanh dương: 6
 - Tím: 7
 - Xám: 8
-- Tr¯ng: 9
+- Trắng: 9
 - Vàng (dung sai): ±5%
 - Không màu: ±20%
 
-**Ví då**: Nâu-en-Cam-Vàng = 10 × 10³© ±5% = 10k© ±5%
+**Ví dụ**: Nâu-Đen-Cam-Vàng = 10 × 10³Ω ±5% = 10kΩ ±5%
 
-#### Công su¥t iÇn trß
-- 1/8W (0.125W): Dùng cho m¡ch tín hiÇu nhÏ
-- 1/4W (0.25W): PhÕ bi¿n nh¥t trong DIY
-- 1/2W (0.5W): Cho dòng lÛn h¡n
-- 1W, 2W, 5W+: iÇn trß công su¥t, c§n t£n nhiÇt
+#### Công suất điện trở
+- 1/8W (0.125W): Dùng cho mạch tín hiệu nhỏ
+- 1/4W (0.25W): Phổ biến nhất trong DIY
+- 1/2W (0.5W): Cho dòng lớn hơn
+- 1W, 2W, 5W+: Điện trở công suất, cần tản nhiệt
 
-#### Các lo¡i iÇn trß
-- **iÇn trß carbon**: R», phÕ bi¿n, nhiÅu cao
-- **iÇn trß kim lo¡i (Metal film)**: Chính xác, Õn Ënh nhiÇt Ù, ít nhiÅu
-- **iÇn trß dây qu¥n (Wirewound)**: Công su¥t cao, cho dòng lÛn
-- **SMD**: G¯n bÁ m·t, nhÏ gÍn
+#### Các loại điện trở
+- **Điện trở carbon**: Rẻ, phổ biến, nhiễu cao
+- **Điện trở kim loại (Metal film)**: Chính xác, ổn định nhiệt độ, ít nhiễu
+- **Điện trở dây quấn (Wirewound)**: Công suất cao, cho dòng lớn
+- **SMD**: Gắn bề mặt, nhỏ gọn
 
-### 2.2 Tå iÇn (Capacitor)
+### 2.2 Tụ điện (Capacitor)
 
-#### Chéc nng
-- L°u trï nng l°ãng iÇn
-- LÍc nhiÅu
-- Tách DC, cho AC i qua
-- T¡o Ù trÅ thÝi gian (vÛi iÇn trß t¡o m¡ch RC)
+#### Chức năng
+- Lưu trữ năng lượng điện
+- Lọc nhiễu
+- Tách DC, cho AC đi qua
+- Tạo độ trễ thời gian (với điện trở tạo mạch RC)
 
-#### Công théc c¡ b£n
+#### Công thức cơ bản
 ```
 Q = C × V
-Q: iÇn tích (Coulomb)
-C: iÇn dung (Farad)
-V: iÇn áp (Volt)
+Q: Điện tích (Coulomb)
+C: Điện dung (Farad)
+V: Điện áp (Volt)
 ```
 
-**Nng l°ãng l°u trï**: E = 1/2 × C × V²
+**Năng lượng lưu trữ**: E = 1/2 × C × V²
 
-#### Các lo¡i tå iÇn
+#### Các loại tụ điện
 
-**1. Tå gÑm (Ceramic Capacitor)**
-- **D£i giá trË**: 1pF - 10µF
-- **iÇn áp**: 10V - 1000V
-- **¯u iÃm**: NhÏ gÍn, r», không phân cñc
-- **Nh°ãc iÃm**: iÇn dung thay Õi theo nhiÇt Ù và iÇn áp
-- **èng dång**: LÍc nhiÅu, ghép tín hiÇu, m¡ch t§n sÑ cao
+**1. Tụ gốm (Ceramic Capacitor)**
+- **Dải giá trị**: 1pF - 10µF
+- **Điện áp**: 10V - 1000V
+- **Ưu điểm**: Nhỏ gọn, rẻ, không phân cực
+- **Nhược điểm**: Điện dung thay đổi theo nhiệt độ và điện áp
+- **Ứng dụng**: Lọc nhiễu, ghép tín hiệu, mạch tần số cao
 
-**2. Tå iÇn phân (Electrolytic Capacitor)**
-- **D£i giá trË**: 1µF - 47,000µF
-- **iÇn áp**: 6.3V - 450V
-- **¯u iÃm**: iÇn dung lÛn, r»
-- **Nh°ãc iÃm**: CÓ PHÂN CðC (+/-), ESR cao, tuÕi thÍ h¡n ch¿
-- **èng dång**: LÍc nguÓn, ghép tín hiÇu audio
-- **L°u ý**: M¯c ng°ãc cñc s½ nÕ!
+**2. Tụ điện phân (Electrolytic Capacitor)**
+- **Dải giá trị**: 1µF - 47,000µF
+- **Điện áp**: 6.3V - 450V
+- **Ưu điểm**: Điện dung lớn, rẻ
+- **Nhược điểm**: CÓ PHÂN CỰC (+/-), ESR cao, tuổi thọ hạn chế
+- **Ứng dụng**: Lọc nguồn, ghép tín hiệu audio
+- **Lưu ý**: Mắc ngược cực sẽ nổ!
 
-**3. Tå Tantalum**
-- **D£i giá trË**: 0.1µF - 1000µF
-- **¯u iÃm**: ESR th¥p, Õn Ënh, nhÏ gÍn
-- **Nh°ãc iÃm**: ¯t, nh¡y c£m vÛi quá áp
-- **èng dång**: NguÓn chuyÃn m¡ch, m¡ch audio cao c¥p
+**3. Tụ Tantalum**
+- **Dải giá trị**: 0.1µF - 1000µF
+- **Ưu điểm**: ESR thấp, ổn định, nhỏ gọn
+- **Nhược điểm**: Đắt, nhạy cảm với quá áp
+- **Ứng dụng**: Nguồn chuyển mạch, mạch audio cao cấp
 
-**4. Tå film (Polyester, Polypropylene)**
-- **¯u iÃm**: Chính xác, Õn Ënh, không phân cñc
-- **èng dång**: Audio Hi-Fi, m¡ch Ënh thÝi, coupling
+**4. Tụ film (Polyester, Polypropylene)**
+- **Ưu điểm**: Chính xác, ổn định, không phân cực
+- **Ứng dụng**: Audio Hi-Fi, mạch định thời, coupling
 
-#### M¯c tå iÇn
-- **NÑi ti¿p**: 1/C_tÕng = 1/C + 1/C' + ...
-- **Song song**: C_tÕng = C + C' + ...
+#### Mắc tụ điện
+- **Nối tiếp**: 1/C_tổng = 1/C₁ + 1/C₂ + ...
+- **Song song**: C_tổng = C₁ + C₂ + ...
 
-### 2.3 CuÙn c£m (Inductor)
+### 2.3 Cuộn cảm (Inductor)
 
-#### Chéc nng
-- L°u trï nng l°ãng të tr°Ýng
-- LÍc t§n sÑ cao
-- T¡o të tr°Ýng (relay, Ùng c¡, transformer)
+#### Chức năng
+- Lưu trữ năng lượng từ trường
+- Lọc tần số cao
+- Tạo từ trường (relay, động cơ, transformer)
 
-#### Công théc c¡ b£n
+#### Công thức cơ bản
 ```
 V = L × dI/dt
-L: Ù tñ c£m (Henry)
-dI/dt: TÑc Ù thay Õi dòng iÇn
+L: Độ tự cảm (Henry)
+dI/dt: Tốc độ thay đổi dòng điện
 ```
 
-**Nng l°ãng l°u trï**: E = 1/2 × L × I²
+**Năng lượng lưu trữ**: E = 1/2 × L × I²
 
-#### ·c iÃm
-- **DC**: CuÙn c£m nh° mÙt o£n m¡ch (R th¥p)
-- **AC**: C£n trß dòng iÇn tng theo t§n sÑ
-- **Impedance**: Z = 2ÀfL (f: t§n sÑ)
+#### Đặc điểm
+- **DC**: Cuộn cảm như một đoạn mạch (R thấp)
+- **AC**: Cản trở dòng điện tăng theo tần số
+- **Impedance**: Z = 2πfL (f: tần số)
 
-#### Các lo¡i cuÙn c£m
-- **CuÙn dây không lõi**: Cho RF, t§n sÑ cao
-- **CuÙn lõi s¯t**: Cho audio, nguÓn SMPS
-- **Toroid**: Ít nhiÅu iÇn të
-- **SMD**: NhÏ gÍn cho bo m¡ch hiÇn ¡i
+#### Các loại cuộn cảm
+- **Cuộn dây không lõi**: Cho RF, tần số cao
+- **Cuộn lõi sắt**: Cho audio, nguồn SMPS
+- **Toroid**: Ít nhiễu điện từ
+- **SMD**: Nhỏ gọn cho bo mạch hiện đại
 
-### 2.4 Bi¿n áp (Transformer)
+### 2.4 Biến áp (Transformer)
 
-#### Chéc nng
-- Bi¿n Õi iÇn áp AC
-- Cách ly iÇn (isolation)
-- TruyÁn nng l°ãng không ti¿p xúc
+#### Chức năng
+- Biến đổi điện áp AC
+- Cách ly điện (isolation)
+- Truyền năng lượng không tiếp xúc
 
 #### Nguyên lý
-- CuÙn s¡ c¥p t¡o të tr°Ýng bi¿n thiên
-- Të tr°Ýng c£m éng lên cuÙn thé c¥p
-- TÉ sÑ vòng dây quy¿t Ënh tÉ sÑ bi¿n áp
+- Cuộn sơ cấp tạo từ trường biến thiên
+- Từ trường cảm ứng lên cuộn thứ cấp
+- Tỉ số vòng dây quyết định tỉ số biến áp
 
-#### Công théc
+#### Công thức
 ```
-V'/V = N'/N
-I'/I = N/N'
-P H P' (bÏ qua tÕn hao)
-```
-
-#### Phân lo¡i
-- **Step-down**: Gi£m áp (220V ' 12V)
-- **Step-up**: Tng áp (12V ' 220V)
-- **1:1**: Cách ly iÇn
-
-## 3. M¡ch DC c¡ b£n
-
-### 3.1 M¡ch nÑi ti¿p (Series Circuit)
-
-#### ·c iÃm
-- Cùng mÙt dòng iÇn ch¡y qua t¥t c£ thành ph§n: I = I' = Iƒ
-- iÇn áp chia theo tÉ lÇ: V_tÕng = V + V' + Vƒ
-- iÇn trß tÕng: R_tÕng = R + R' + Rƒ
-
-#### èng dång
-- Chia iÇn áp
-- H¡n ch¿ dòng iÇn
-- LED nÑi ti¿p
-
-### 3.2 M¡ch song song (Parallel Circuit)
-
-#### ·c iÃm
-- Cùng iÇn áp trên t¥t c£ nhánh: V = V' = Vƒ
-- Dòng iÇn chia theo nhánh: I_tÕng = I + I' + Iƒ
-- iÇn trß tÕng: 1/R_tÕng = 1/R + 1/R' + 1/Rƒ
-
-#### èng dång
-- Chia dòng iÇn
-- Tng công su¥t
-- HÇ thÑng iÇn trong nhà
-
-### 3.3 C§u phân áp (Voltage Divider)
-
-#### S¡ Ó nguyên lý
-```
-    Vin , R , Vout
-                     
-          GND        R'
-                     
-                    GND
+V₂/V₁ = N₂/N₁
+I₂/I₁ = N₁/N₂
+P₁ ≈ P₂ (bỏ qua tổn hao)
 ```
 
-#### Công théc
+#### Phân loại
+- **Step-down**: Giảm áp (220V → 12V)
+- **Step-up**: Tăng áp (12V → 220V)
+- **1:1**: Cách ly điện
+
+## 3. Mạch DC cơ bản
+
+### 3.1 Mạch nối tiếp (Series Circuit)
+
+#### Đặc điểm
+- Cùng một dòng điện chạy qua tất cả thành phần: I₁ = I₂ = I₃
+- Điện áp chia theo tỉ lệ: V_tổng = V₁ + V₂ + V₃
+- Điện trở tổng: R_tổng = R₁ + R₂ + R₃
+
+#### Ứng dụng
+- Chia điện áp
+- Hạn chế dòng điện
+- LED nối tiếp
+
+### 3.2 Mạch song song (Parallel Circuit)
+
+#### Đặc điểm
+- Cùng điện áp trên tất cả nhánh: V₁ = V₂ = V₃
+- Dòng điện chia theo nhánh: I_tổng = I₁ + I₂ + I₃
+- Điện trở tổng: 1/R_tổng = 1/R₁ + 1/R₂ + 1/R₃
+
+#### Ứng dụng
+- Chia dòng điện
+- Tăng công suất
+- Hệ thống điện trong nhà
+
+### 3.3 Cầu phân áp (Voltage Divider)
+
+#### Sơ đồ nguyên lý
 ```
-Vout = Vin × R' / (R + R')
+    Vin ----[R₁]---- Vout
+                |
+               [R₂]
+                |
+               GND
 ```
 
-#### èng dång
-- Gi£m iÇn áp
-- Íc c£m bi¿n bi¿n trß (potentiometer, LDR, thermistor)
-- T¡o iÇn áp tham chi¿u
-
-#### L°u ý quan trÍng
-- ChÉ dùng khi dòng t£i nhÏ
-- iÇn trß nguÓn £nh h°ßng ¿n Vout khi có t£i
-- Khi có t£i: Vout = Vin × (R' || Rt£i) / (R + R' || Rt£i)
-
-### 3.4 C§u Wheatstone
-
-#### S¡ Ó nguyên lý
+#### Công thức
 ```
-         R        Rƒ
-    +/\/\/\,/\/\/\+
-    |              |              |
-   Vin            Vo              |
-    |              |              |
-    +/\/\/\4/\/\/\+
-         R'        R"
+Vout = Vin × R₂ / (R₁ + R₂)
+```
+
+#### Ứng dụng
+- Giảm điện áp
+- Đọc cảm biến biến trở (potentiometer, LDR, thermistor)
+- Tạo điện áp tham chiếu
+
+#### Lưu ý quan trọng
+- Chỉ dùng khi dòng tải nhỏ
+- Điện trở nguồn ảnh hưởng đến Vout khi có tải
+- Khi có tải: Vout = Vin × (R₂ || Rtải) / (R₁ + R₂ || Rtải)
+
+### 3.4 Cầu Wheatstone
+
+#### Sơ đồ nguyên lý
+```
+         R₁        R₃
+    +---/\/\/\---+---/\/\/\---+
+    |            |            |
+   Vin          Vo            |
+    |            |            |
+    +---/\/\/\---+---/\/\/\---+
+         R₂        R₄
 ```
 
 #### Nguyên lý
-- C§u cân b±ng khi: R/R' = Rƒ/R"
-- Khi cân b±ng: Vo = 0
-- Khi m¥t cân b±ng: Vo ` 0, tÉ lÇ vÛi Ù lÇch
+- Cầu cân bằng khi: R₁/R₂ = R₃/R₄
+- Khi cân bằng: Vo = 0
+- Khi mất cân bằng: Vo ≠ 0, tỉ lệ với độ lệch
 
-#### Công théc iÇn áp ra
+#### Công thức điện áp ra
 ```
-Vo = Vin × [(Rƒ/(Rƒ+R")) - (R/(R+R'))]
+Vo = Vin × [(R₃/(R₃+R₄)) - (R₁/(R₁+R₂))]
 ```
 
-#### èng dång
-- o iÇn trß chính xác
-- C£m bi¿n (strain gauge, nhiÇt Ù, áp su¥t)
-- M¡ch phát hiÇn thay Õi nhÏ
+#### Ứng dụng
+- Đo điện trở chính xác
+- Cảm biến (strain gauge, nhiệt độ, áp suất)
+- Mạch phát hiện thay đổi nhỏ
 
 ---
 
-## Tài liÇu tham kh£o
+## Tài liệu tham khảo
 
 1. **All About Circuits** - Chapter: DC Circuit Analysis
 2. **The Art of Electronics** (Horowitz & Hill) - Chapter 1
 3. **Practical Electronics for Inventors** - Chapters 2-3
 4. **Electronic Principles** (Malvino) - Chapters 1-4
 
-## Bài t­p tñ luyÇn
+## Bài tập tự luyện
 
-1. Tính iÇn trß h¡n dòng cho LED 3.3V/20mA vÛi nguÓn 9V
-2. Thi¿t k¿ c§u phân áp à t¡o 3.3V të nguÓn 5V vÛi dòng t£i 10mA
-3. Tính công su¥t tiêu thå cça iÇn trß 10k© khi có 12V ·t vào
-4. Phân tích m¡ch nÑi ti¿p 3 iÇn trß (1k©, 2.2k©, 4.7k©) vÛi nguÓn 12V
-5. Thi¿t k¿ c§u Wheatstone vÛi R1=R2=R3=1k©, tìm R4 Ã cân b±ng
+1. Tính điện trở hạn dòng cho LED 3.3V/20mA với nguồn 9V
+2. Thiết kế cầu phân áp để tạo 3.3V từ nguồn 5V với dòng tải 10mA
+3. Tính công suất tiêu thụ của điện trở 10kΩ khi có 12V đặt vào
+4. Phân tích mạch nối tiếp 3 điện trở (1kΩ, 2.2kΩ, 4.7kΩ) với nguồn 12V
+5. Thiết kế cầu Wheatstone với R1=R2=R3=1kΩ, tìm R4 để cân bằng
